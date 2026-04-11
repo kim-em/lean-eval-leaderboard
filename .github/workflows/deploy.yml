@@ -31,6 +31,22 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Cache site Lake workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            .lake/packages
+            .lake/build
+          key: ${{ runner.os }}-site-lake-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lakefile.toml', 'lake-manifest.json') }}
+
+      - name: Cache benchmark snapshot Lake workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            benchmark-snapshot/.lake/packages
+            benchmark-snapshot/.lake/build
+          key: ${{ runner.os }}-snapshot-lake-${{ hashFiles('benchmark-snapshot/lean-toolchain', 'benchmark-snapshot/lakefile.toml', 'benchmark-snapshot/BenchmarkProblems.lean', 'benchmark-snapshot/BenchmarkProblems/**/*.lean') }}
+
       - name: Fetch Lake dependencies
         run: lake update
 
