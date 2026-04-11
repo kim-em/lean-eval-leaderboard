@@ -24,7 +24,7 @@ function problemPageHref(problemId) {
 }
 
 function readProblemSections(root) {
-  const prose = root.querySelector(".page-copy .prose");
+  const prose = root.querySelector(".page-copy.prose, .prose.page-copy, .page-copy .prose");
   if (!prose) return [];
 
   const children = Array.from(prose.children);
