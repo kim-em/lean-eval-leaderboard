@@ -28,7 +28,7 @@ Source: https://arxiv.org/pdf/1004.0665
 
 Informal solution: If the house is at most 2, then it equals 2 cos(pi / m) for some positive integer m.
 
-```anchor cyclotomic_integer_house_le_two (module := BenchmarkProblems.NumberTheory.SmallHouse)
+```anchor cyclotomic_integer_house_le_two (module := BenchmarkProblems.Catalog)
 theorem cyclotomic_integer_house_le_two {K : Type*} [Field K] [NumberField K] [Algebra ℚ K]
     {n : ℕ} [NeZero n] [IsCyclotomicExtension {n} ℚ K] {β : K}
     (hβ_int : IsIntegral ℤ β)
@@ -50,7 +50,7 @@ Source: https://arxiv.org/pdf/1004.0665
 
 Informal solution: If the house lies in (2, 76/33), then it is one of the five explicitly listed values.
 
-```anchor cyclotomic_integer_house_between_two_and_76_33 (module := BenchmarkProblems.NumberTheory.SmallHouse)
+```anchor cyclotomic_integer_house_between_two_and_76_33 (module := BenchmarkProblems.Catalog)
 theorem cyclotomic_integer_house_between_two_and_76_33 {K : Type*} [Field K] [NumberField K] [Algebra ℚ K]
     (n : ℕ) [NeZero n] [IsCyclotomicExtension {n} ℚ K] {β : K}
     (hβ_int : IsIntegral ℤ β)
@@ -76,7 +76,7 @@ Source: https://arxiv.org/abs/math/0008177
 
 Informal solution: Prove that the Riemann hypothesis is equivalent to the inequality σ(n) ≤ H\_n + exp(H\_n) log(H\_n) for all positive integers n.
 
-```anchor riemann_hypothesis_iff_lagarias_elementary_criterion (module := BenchmarkProblems.NumberTheory.Lagarias)
+```anchor riemann_hypothesis_iff_lagarias_elementary_criterion (module := BenchmarkProblems.Catalog)
 theorem riemann_hypothesis_iff_lagarias_elementary_criterion :
     RiemannHypothesis ↔ LagariasElementaryCriterion := by
   sorry
@@ -94,7 +94,7 @@ Source: Classical theorem in Ramsey theory.
 
 Informal solution: Show that for every r and s there is an n such that every graph on n vertices contains either a clique of size r or an independent set of size s.
 
-```anchor finite_graph_ramsey_theorem (module := BenchmarkProblems.Combinatorics.Ramsey)
+```anchor finite_graph_ramsey_theorem (module := BenchmarkProblems.Catalog)
 theorem finite_graph_ramsey_theorem :
     ∀ r s : ℕ, 2 ≤ r → 2 ≤ s → ∃ n : ℕ, ∀ G : SimpleGraph (Fin n), ¬ G.CliqueFree r ∨ ¬ Gᶜ.CliqueFree s := by
   sorry
@@ -112,7 +112,7 @@ Source: https://link.springer.com/article/10.1007/s00222-025-01346-9
 
 Informal solution: Exploit the Vieta involution symmetries of the Markoff graph over F\_p and show each connected component has size divisible by p.
 
-```anchor dvd_card_connectedComponent_markoffGraph (module := BenchmarkProblems.Combinatorics.MarkoffGraph)
+```anchor dvd_card_connectedComponent_markoffGraph (module := BenchmarkProblems.Catalog)
 theorem dvd_card_connectedComponent_markoffGraph {p : ℕ} (hp : Nat.Prime p) (hgt : 3 < p) :
     ∀ c : (markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
   sorry
@@ -130,7 +130,7 @@ Source: Classical theorem in finite group theory.
 
 Informal solution: Use character theory and induction on the group order to prove solvability.
 
-```anchor finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow (module := BenchmarkProblems.GroupTheory.Burnside)
+```anchor finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow (module := BenchmarkProblems.Catalog)
 theorem finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow {G : Type*} [Group G] [Fintype G]
     {p q a b : ℕ}
     (hp : Nat.Prime p)
@@ -153,7 +153,7 @@ Source: Classical theorem in complex analysis.
 
 Informal solution: If |g| < |f| on the boundary circle, then f and f + g have the same number of zeros inside, counted with multiplicity.
 
-```anchor rouche_logCounting_zero_eq (module := BenchmarkProblems.ComplexAnalysis.Rouche)
+```anchor rouche_logCounting_zero_eq (module := BenchmarkProblems.Catalog)
 theorem rouche_logCounting_zero_eq {f g : ℂ → ℂ} {R : ℝ}
     (hR : 1 ≤ R)
     (hf : Meromorphic f)
@@ -175,7 +175,7 @@ Source: https://link.springer.com/article/10.1007/s00220-025-05302-9
 
 Informal solution: Construct a polynomial Q so that |P(z)|^2 + |Q(z)|^2 = 1 for all z on the unit circle.
 
-```anchor exists_complementary_polynomial_on_unit_circle (module := BenchmarkProblems.ComplexAnalysis.ComplementaryPolynomials)
+```anchor exists_complementary_polynomial_on_unit_circle (module := BenchmarkProblems.Catalog)
 theorem exists_complementary_polynomial_on_unit_circle (P : ℂ[X])
     (hP : ∀ z : Circle, ‖P.eval (z : ℂ)‖ ≤ 1) :
     ∃ Q : ℂ[X],
@@ -196,7 +196,7 @@ Source: Classical theorem in linear algebra.
 
 Informal solution: Show that an irreducible nonnegative matrix has a strictly positive eigenvector with eigenvalue equal to its spectral radius.
 
-```anchor irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius (module := BenchmarkProblems.LinearAlgebra.PerronFrobenius)
+```anchor irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius (module := BenchmarkProblems.Catalog)
 theorem irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius {n : Type*} [Fintype n] [DecidableEq n]
     (A : Matrix n n ℝ)
     (hA : A.IsIrreducible) :
@@ -218,7 +218,7 @@ Source: Classical theorem in convex geometry.
 
 Informal solution: Combine Krein-Milman with Caratheodory to represent each point as a convex combination of at most finrank + 1 extreme points.
 
-```anchor mem_convexHull_finset_extremePoints_of_mem_compact_convex (module := BenchmarkProblems.ConvexGeometry.MinkowskiCaratheodory)
+```anchor mem_convexHull_finset_extremePoints_of_mem_compact_convex (module := BenchmarkProblems.Catalog)
 theorem mem_convexHull_finset_extremePoints_of_mem_compact_convex {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
     {s : Set E} {x : E}
     (hscomp : IsCompact s)
@@ -243,7 +243,7 @@ Source: https://link.springer.com/article/10.1007/s40316-018-0102-6
 
 Informal solution: Evaluate the Chudnovsky series and prove that it sums to 1 / pi.
 
-```anchor chudnovsky_formula_for_pi_inv (module := BenchmarkProblems.Analysis.Chudnovsky)
+```anchor chudnovsky_formula_for_pi_inv (module := BenchmarkProblems.Catalog)
 theorem chudnovsky_formula_for_pi_inv :
     chudnovskySum = π⁻¹ := by
   sorry
@@ -261,7 +261,7 @@ Source: Classical theorem in algebraic topology.
 
 Informal solution: Use winding number to identify loops in the circle up to homotopy with the integers.
 
-```anchor pi1_circle_mulEquiv_int (module := BenchmarkProblems.Topology.HomotopyGroups)
+```anchor pi1_circle_mulEquiv_int (module := BenchmarkProblems.Catalog)
 theorem pi1_circle_mulEquiv_int :
     Nonempty (HomotopyGroup.Pi 1 Circle (1 : Circle) ≃* Multiplicative ℤ) := by
   sorry
@@ -279,7 +279,7 @@ Source: Classical theorem in algebraic topology.
 
 Informal solution: Use the Hopf fibration to identify the third homotopy group of the 2-sphere with the integers.
 
-```anchor pi3_sphere_two_mulEquiv_int (module := BenchmarkProblems.Topology.HomotopyGroups)
+```anchor pi3_sphere_two_mulEquiv_int (module := BenchmarkProblems.Catalog)
 theorem pi3_sphere_two_mulEquiv_int (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin 3)) 1) :
     Nonempty
       (HomotopyGroup.Pi 3 (Metric.sphere (0 : EuclideanSpace ℝ (Fin 3)) 1) x ≃*
@@ -299,7 +299,7 @@ Source: Classical theorem in algebraic topology.
 
 Informal solution: Identify homotopy classes of self-maps of S^n with their degree.
 
-```anchor pin_sphere_n_mulEquiv_int (module := BenchmarkProblems.Topology.HomotopyGroups)
+```anchor pin_sphere_n_mulEquiv_int (module := BenchmarkProblems.Catalog)
 theorem pin_sphere_n_mulEquiv_int (n : ℕ)
     (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 2))) 1) :
     Nonempty
@@ -320,7 +320,7 @@ Source: Classical theorem in unstable homotopy theory.
 
 Informal solution: Use suspension and the stable range to show the first stable stem is Z/2.
 
-```anchor pi_succ_sphere_n_mulEquiv_zmod_two (module := BenchmarkProblems.Topology.HomotopyGroups)
+```anchor pi_succ_sphere_n_mulEquiv_zmod_two (module := BenchmarkProblems.Catalog)
 theorem pi_succ_sphere_n_mulEquiv_zmod_two (n : ℕ) (hn : 3 ≤ n)
     (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 1))) 1) :
     Nonempty
@@ -343,7 +343,7 @@ Source: Internal starter problem.
 
 Informal solution: By computation.
 
-```anchor two_plus_two (module := BenchmarkProblems.EasyProblems)
+```anchor two_plus_two (module := BenchmarkProblems.Catalog)
 theorem two_plus_two_eq_four : (2 : Nat) + 2 = 4 := by
   sorry
 ```
@@ -360,7 +360,7 @@ Source: Internal starter problem.
 
 Informal solution: Compute the length after append.
 
-```anchor list_append_singleton_length (module := BenchmarkProblems.EasyProblems)
+```anchor list_append_singleton_length (module := BenchmarkProblems.Catalog)
 theorem list_append_singleton_length :
     (([1, 2] : List Nat).append [3]).length = 3 := by
   sorry

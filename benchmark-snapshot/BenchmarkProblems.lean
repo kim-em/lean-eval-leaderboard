@@ -1,12 +1,1 @@
-import BenchmarkProblems.Analysis.Chudnovsky
-import BenchmarkProblems.Combinatorics.MarkoffGraph
-import BenchmarkProblems.Combinatorics.Ramsey
-import BenchmarkProblems.ComplexAnalysis.ComplementaryPolynomials
-import BenchmarkProblems.ComplexAnalysis.Rouche
-import BenchmarkProblems.ConvexGeometry.MinkowskiCaratheodory
-import BenchmarkProblems.EasyProblems
-import BenchmarkProblems.GroupTheory.Burnside
-import BenchmarkProblems.LinearAlgebra.PerronFrobenius
-import BenchmarkProblems.NumberTheory.Lagarias
-import BenchmarkProblems.NumberTheory.SmallHouse
-import BenchmarkProblems.Topology.HomotopyGroups
+import BenchmarkProblems.Catalog
