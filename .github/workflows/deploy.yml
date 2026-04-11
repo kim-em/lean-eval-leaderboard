@@ -34,6 +34,18 @@ jobs:
       - name: Fetch Lake dependencies
         run: lake update
 
+      - name: Prebuild benchmark snapshot
+        shell: bash
+        run: |
+          cd benchmark-snapshot
+          lake update
+          lake build BenchmarkProblems subverso-extract-mod
+          for file in BenchmarkProblems/*.lean; do
+            module="BenchmarkProblems.${file#BenchmarkProblems/}"
+            module="${module%.lean}"
+            lake build "+${module}:highlighted"
+          done
+
       - name: Build site
         run: lake exe lean-eval-leaderboard --output _site
 
