@@ -27,38 +27,17 @@ function readProblemSections(root) {
   const prose = root.querySelector(".page-copy.prose, .prose.page-copy, .page-copy .prose");
   if (!prose) return [];
 
-  const children = Array.from(prose.children);
-  const sections = [];
-  for (let index = 0; index < children.length; index += 1) {
-    const heading = children[index];
-    if (heading.tagName !== "H3") continue;
-
-    let problemId = null;
-    let codeBlock = null;
-    for (let offset = index + 1; offset < children.length; offset += 1) {
-      const node = children[offset];
-      if (node.tagName === "H2" || node.tagName === "H3") break;
-      if (!problemId && node.tagName === "P") {
-        const code = node.querySelector("code");
-        if (code) {
-          problemId = code.textContent.trim();
-        }
-      }
-      if (!codeBlock && node.matches(".hl.lean.block")) {
-        codeBlock = node;
-      }
-    }
-
-    if (problemId) {
-      sections.push({
-        heading,
-        problemId,
-        title: heading.textContent.trim(),
-        renderedHtml: codeBlock?.outerHTML ?? null,
-      });
-    }
-  }
-  return sections;
+  return Array.from(prose.querySelectorAll("section > h3")).map((heading) => {
+    const section = heading.parentElement;
+    const problemId = section?.querySelector("p code")?.textContent?.trim() ?? null;
+    const codeBlock = section?.querySelector(".hl.lean.block") ?? null;
+    return problemId ? {
+      heading,
+      problemId,
+      title: heading.textContent.trim(),
+      renderedHtml: codeBlock?.outerHTML ?? null,
+    } : null;
+  }).filter(Boolean);
 }
 
 function enhanceProblemsPage() {
@@ -253,6 +232,8 @@ function renderHome(root, problems, leaderboard, renderedMap) {
 }
 
 async function main() {
+  enhanceProblemsPage();
+
   const root = document.getElementById("app-root");
   if (!root) return;
   const page = root.dataset.page ?? "";
@@ -279,7 +260,6 @@ async function main() {
       return;
     }
 
-    enhanceProblemsPage();
     root.innerHTML = "";
   } catch (error) {
     console.error(error);
