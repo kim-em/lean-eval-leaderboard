@@ -34,6 +34,7 @@ case-insensitive.
       "benchmark_commit": "8e1b9cf5e1d3c2b1a0f9e8d7c6b5a4938271605f",
       "submission_repo": "kim-em/my-lean-eval-proofs",
       "submission_ref": "deadbeefcafef00dbaadc0de1234567890abcdef",
+      "submission_public": true,
       "model": "Claude Opus 4.6",
       "issue_number": 42
     },
@@ -42,6 +43,7 @@ case-insensitive.
       "benchmark_commit": "8e1b9cf5e1d3c2b1a0f9e8d7c6b5a4938271605f",
       "submission_repo": "kim-em/my-lean-eval-proofs",
       "submission_ref": "deadbeefcafef00dbaadc0de1234567890abcdef",
+      "submission_public": false,
       "model": "Claude Opus 4.6",
       "issue_number": 43
     }
@@ -65,6 +67,7 @@ case-insensitive.
 | `benchmark_commit` | string  | 40-character SHA of the `kim-em/lean-eval` commit evaluated against.                   |
 | `submission_repo`  | string  | `owner/repo` of the submitter's repository.                                            |
 | `submission_ref`   | string  | 40-character SHA of the submitter's repo at evaluation time.                           |
+| `submission_public`| boolean | `true` if the submitter's repository was public at evaluation time, `false` otherwise. The leaderboard site uses this to decide whether to link to the solution. |
 | `model`            | string  | Free-form model identifier supplied by the submitter on the submission form.           |
 | `issue_number`     | integer | Issue number in `kim-em/lean-eval` that triggered the evaluation.                      |
 
