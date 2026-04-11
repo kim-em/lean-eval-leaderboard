@@ -40,11 +40,14 @@ jobs:
           cd benchmark-snapshot
           lake update
           lake build BenchmarkProblems subverso-extract-mod
-          for file in BenchmarkProblems/*.lean; do
-            module="BenchmarkProblems.${file#BenchmarkProblems/}"
-            module="${module%.lean}"
-            lake build "+${module}:highlighted"
-          done
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          for path in sorted(Path("BenchmarkProblems").rglob("*.lean")):
+            module = "BenchmarkProblems." + ".".join(path.with_suffix("").parts[1:])
+            subprocess.run(["lake", "build", f"+{module}:highlighted"], check=True)
+          PY
 
       - name: Build site
         run: lake exe lean-eval-leaderboard --output _site
