@@ -65,9 +65,9 @@ case-insensitive.
 | ------------------ | ------- | -------------------------------------------------------------------------------------- |
 | `solved_at`        | string  | ISO 8601 UTC timestamp of when the record was first written.                           |
 | `benchmark_commit` | string  | 40-character SHA of the `kim-em/lean-eval` commit evaluated against.                   |
-| `submission_repo`  | string  | `owner/repo` of the submitter's repository.                                            |
-| `submission_ref`   | string  | 40-character SHA of the submitter's repo at evaluation time.                           |
-| `submission_public`| boolean | `true` if the submitter's repository was public at evaluation time, `false` otherwise. The leaderboard site uses this to decide whether to link to the solution. |
+| `submission_repo`  | string  | Identifier of the submission source: `owner/repo` for a GitHub repository, or `user/gist-id` for a gist. |
+| `submission_ref`   | string  | 40-character SHA pinning the submission at evaluation time. For repositories this is a commit SHA; for gists this is the gist revision SHA. |
+| `submission_public`| boolean | `true` if the submission source was public at evaluation time, `false` otherwise. The leaderboard site uses this to decide whether to link to the solution. |
 | `model`            | string  | Free-form model identifier supplied by the submitter on the submission form.           |
 | `issue_number`     | integer | Issue number in `kim-em/lean-eval` that triggered the evaluation.                      |
 
