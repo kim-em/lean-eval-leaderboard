@@ -579,6 +579,40 @@ nav.top .home {
   box-shadow: none;
 }
 
+.theorem-card-rendered .hl.lean.block,
+.theorem-card-rendered .hl.lean.block code {
+  color: #dbe7ec;
+}
+
+.theorem-card-rendered .hl.lean.block .inter-text,
+.theorem-card-rendered .hl.lean.block .unknown.token {
+  color: #b8c4ca;
+}
+
+.theorem-card-rendered .hl.lean.block .keyword.token {
+  color: #8fe7db;
+}
+
+.theorem-card-rendered .hl.lean.block .const.token,
+.theorem-card-rendered .hl.lean.block .sort.token {
+  color: #f4c27b;
+}
+
+.theorem-card-rendered .hl.lean.block .var.token,
+.theorem-card-rendered .hl.lean.block .typed.token {
+  color: #9fc7ff;
+}
+
+.theorem-card-rendered .hl.lean.block .tactic {
+  color: #c9d3d8;
+}
+
+.theorem-card-rendered .hl.lean .hover-info code,
+.theorem-card-rendered .hl.lean .hover-info.messages > code,
+.theorem-card-rendered .verso-message.warning {
+  color: #181c20;
+}
+
 .theorem-card-static {
   display: block;
   position: static;
