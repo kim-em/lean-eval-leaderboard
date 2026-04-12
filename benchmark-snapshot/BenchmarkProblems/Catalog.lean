@@ -166,7 +166,7 @@ open scoped BigOperators
 
 -- ANCHOR: dvd_card_connectedComponent_markoffGraph
 theorem dvd_card_connectedComponent_markoffGraph {p : ℕ} (hp : Nat.Prime p) (hgt : 3 < p) :
-    ∀ c : (markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
+    ∀ c : (FormalMathEval.Combinatorics.markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
   sorry
 -- ANCHOR_END: dvd_card_connectedComponent_markoffGraph
 
