@@ -26,7 +26,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clone benchmark repo
-        run: git clone --depth=1 https://github.com/kim-em/lean-eval.git lean-eval
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone --depth=1 \
+            "https://x-access-token:${GH_TOKEN}@github.com/kim-em/lean-eval.git" \
+            lean-eval
 
       - name: Set up elan
         shell: bash
