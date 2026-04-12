@@ -57,7 +57,7 @@ end ProblemCyclotomicIntegerHouseBetweenTwoAnd7633
 
 namespace ProblemRiemannHypothesisIffLagariasElementaryCriterion
 
-namespace FormalMathEval
+namespace LeanEval
 namespace NumberTheory
 
 open scoped ArithmeticFunction.sigma
@@ -79,13 +79,13 @@ def LagariasElementaryCriterion : Prop :=
 
 
 end NumberTheory
-end FormalMathEval
+end LeanEval
 
 open scoped ArithmeticFunction.sigma
 
 -- ANCHOR: riemann_hypothesis_iff_lagarias_elementary_criterion
 theorem riemann_hypothesis_iff_lagarias_elementary_criterion :
-    RiemannHypothesis ↔ FormalMathEval.NumberTheory.LagariasElementaryCriterion := by
+    RiemannHypothesis ↔ LeanEval.NumberTheory.LagariasElementaryCriterion := by
   sorry
 -- ANCHOR_END: riemann_hypothesis_iff_lagarias_elementary_criterion
 
@@ -105,7 +105,7 @@ end ProblemFiniteGraphRamseyTheorem
 
 namespace ProblemDvdCardConnectedComponentMarkoffGraph
 
-namespace FormalMathEval
+namespace LeanEval
 namespace Combinatorics
 
 open scoped BigOperators
@@ -160,13 +160,13 @@ def markoffGraph (p : ℕ) : SimpleGraph (MarkoffTriple p) where
 
 
 end Combinatorics
-end FormalMathEval
+end LeanEval
 
 open scoped BigOperators
 
 -- ANCHOR: dvd_card_connectedComponent_markoffGraph
 theorem dvd_card_connectedComponent_markoffGraph {p : ℕ} (hp : Nat.Prime p) (hgt : 3 < p) :
-    ∀ c : (FormalMathEval.Combinatorics.markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
+    ∀ c : (LeanEval.Combinatorics.markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
   sorry
 -- ANCHOR_END: dvd_card_connectedComponent_markoffGraph
 
