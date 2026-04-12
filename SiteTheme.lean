@@ -37,6 +37,7 @@ def theme (name : String) (siteName : String) : Theme := {
           {{← builtinHeader }}
           <link rel="stylesheet" href="static/style.css"/>
           <script defer="true" src="static/app.js"></script>
+          <script defer="true" src="static/background.js"></script>
         </head>
         <body class={{pageClass}}>
           <div class="site-shell">

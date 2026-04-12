@@ -19,8 +19,8 @@ a {
 body {
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(10, 14, 18, 0.92), rgba(10, 14, 18, 0.96)),
-    #111418 url("background.svg") center top / 1600px auto repeat;
+    linear-gradient(180deg, rgba(10, 14, 18, 0.55), rgba(10, 14, 18, 0.65)),
+    #111418;
   color: #e7ecef;
   font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
   line-height: 1.5;
@@ -132,6 +132,12 @@ nav.top .home {
 
 .prose li {
   margin-bottom: 10px;
+}
+
+.page-copy {
+  margin-top: 28px;
+  margin-bottom: 28px;
+  padding: 28px 36px;
 }
 
 .page-copy .prose {
@@ -255,6 +261,7 @@ nav.top .home {
 
 .hero-panel,
 .leaderboard-panel,
+.page-copy,
 .entry,
 .error-panel,
 .loading-panel {
@@ -265,6 +272,7 @@ nav.top .home {
 
 .hero-panel,
 .leaderboard-panel,
+.page-copy,
 .error-panel,
 .loading-panel {
   border-radius: 20px;
@@ -668,6 +676,7 @@ nav.top .home {
 .footer {
   border-top: 1px solid rgba(126, 227, 217, 0.12);
   padding: 18px 0 32px;
+  background: #111418;
 }
 
 .footer-inner {
