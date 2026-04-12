@@ -114,7 +114,7 @@ Informal solution: Exploit the Vieta involution symmetries of the Markoff graph 
 
 ```anchor dvd_card_connectedComponent_markoffGraph (module := BenchmarkProblems.Catalog)
 theorem dvd_card_connectedComponent_markoffGraph {p : ℕ} (hp : Nat.Prime p) (hgt : 3 < p) :
-    ∀ c : (markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
+    ∀ c : (FormalMathEval.Combinatorics.markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
   sorry
 ```
 
@@ -365,4 +365,3 @@ theorem list_append_singleton_length :
     (([1, 2] : List Nat).append [3]).length = 3 := by
   sorry
 ```
-
