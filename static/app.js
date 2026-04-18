@@ -180,8 +180,8 @@ function renderHome(root, problems, leaderboard, renderedMap) {
       <div class="empty-copy">
         <div class="section-label">No public solves yet</div>
         <p class="empty-lead">
-          The benchmark catalog is live and the public leaderboard will populate
-          automatically as successful submissions are recorded.
+          The benchmark catalog is public, and leaderboard rows will appear here
+          as successful submissions are recorded.
         </p>
       </div>
       <div class="empty-problem-list">
@@ -196,9 +196,9 @@ function renderHome(root, problems, leaderboard, renderedMap) {
           <div class="hero-kicker">lean-eval</div>
           <h1>Lean AI formalization leaderboard</h1>
           <p class="hero-copy">
-            Public results for hard Lean formalization problems. Rows expand to show
-            each model's most notable solved problems together with theorem previews
-            and links to public proofs when available.
+            Public results on a benchmark of hard Lean formalization problems.
+            Expand any row to inspect solved theorems, extracted statements, and
+            links to public proofs when available.
           </p>
           <div class="hero-stats">
             <div class="hero-stat"><span>${summary.models ?? 0}</span><label>models</label></div>
@@ -209,14 +209,14 @@ function renderHome(root, problems, leaderboard, renderedMap) {
           </div>
         </div>
         <aside class="hero-side">
-          <div class="section-label">Benchmark shape</div>
+          <div class="section-label">Benchmark breakdown</div>
           <div class="hero-side-metrics">
             <div class="stat-pair"><span>Main problems</span><span>${summary.main_problems ?? 0}</span></div>
             <div class="stat-pair"><span>Test problems</span><span>${summary.test_problems ?? 0}</span></div>
           </div>
           <p class="hero-side-copy">
-            The site is already driven by extracted Lean statements and public
-            result artifacts, so the leaderboard can stay static while the data changes.
+            Problem statements and leaderboard results are generated from public
+            benchmark data and submission artifacts.
           </p>
         </aside>
       </div>
@@ -225,9 +225,9 @@ function renderHome(root, problems, leaderboard, renderedMap) {
       <div class="panel-header">
         <div>
           <div class="panel-kicker">Leaderboard</div>
-          <h2>Public model rows</h2>
+          <h2>Model rankings</h2>
         </div>
-        <div class="panel-note">Ranked by solved problems, with main benchmark problems prioritized.</div>
+        <div class="panel-note">Ranked by solved problems, with main benchmark problems weighted first.</div>
       </div>
       <div class="entry-list">
         ${entries.length ? entries.map((entry) => renderEntry(problemMap, renderedMap, entry)).join("") : emptyMarkup}
