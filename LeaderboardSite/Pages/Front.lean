@@ -25,3 +25,7 @@ the problem set will be mostly, but not entirely,
 out of reach for current publicly available frontier models,
 or simple orchestration layers built on top of these.
 So some genuine mathematical subtlety is required!
+
+It's also important to say what this benchmark is *not*:
+We are not trying to capture the ability to write readable or reusable code, or to follow best practices in Lean.
+In particular, the *only* requirement for a solution to be accepted is that it is correct and passes the comparator tests.
