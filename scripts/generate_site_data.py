@@ -19,7 +19,6 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 RESULTS_ROOT = REPO_ROOT / "results"
 SITE_DATA_ROOT = REPO_ROOT / "site-data"
 BENCHMARK_SNAPSHOT_ROOT = REPO_ROOT / "benchmark-snapshot"
-BENCHMARK_SNAPSHOT_TEMPLATE_ROOT = REPO_ROOT / "templates" / "benchmark-snapshot"
 DEFAULT_BENCHMARK_REPO = pathlib.Path(
     os.environ.get("LEAN_EVAL_BENCHMARK_REPO", str(REPO_ROOT.parent / "lean-evals"))
 )
@@ -114,6 +113,42 @@ def write_json(path: pathlib.Path, payload: Any) -> None:
 def write_text(path: pathlib.Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def benchmark_mathlib_require(benchmark_repo: pathlib.Path) -> tuple[str, str]:
+    lakefile = benchmark_repo / "lakefile.toml"
+    data = tomllib.loads(lakefile.read_text(encoding="utf-8"))
+    for req in data.get("require", []):
+        if str(req.get("name")) == "mathlib":
+            git = str(req.get("git", "")).strip()
+            rev = str(req.get("rev", "")).strip()
+            if git and rev:
+                return git, rev
+    raise SystemExit(f"Could not find mathlib requirement in {lakefile}")
+
+
+def benchmark_snapshot_lakefile(benchmark_repo: pathlib.Path) -> str:
+    mathlib_git, mathlib_rev = benchmark_mathlib_require(benchmark_repo)
+    return "\n".join(
+        [
+            'name = "benchmark-snapshot"',
+            'defaultTargets = ["BenchmarkProblems"]',
+            "",
+            "[[require]]",
+            'name = "mathlib"',
+            f'git = "{mathlib_git}"',
+            f'rev = "{mathlib_rev}"',
+            "",
+            "[[require]]",
+            'name = "subverso"',
+            'git = "https://github.com/leanprover/subverso"',
+            'rev = "main"',
+            "",
+            "[[lean_lib]]",
+            'name = "BenchmarkProblems"',
+            "",
+        ]
+    )
 
 
 def load_results(results_root: pathlib.Path) -> list[dict[str, Any]]:
@@ -248,9 +283,9 @@ def write_benchmark_snapshot(benchmark_repo: pathlib.Path, problems: list[Proble
         shutil.rmtree(BENCHMARK_SNAPSHOT_ROOT)
     BENCHMARK_SNAPSHOT_ROOT.mkdir(parents=True, exist_ok=True)
 
-    shutil.copy2(
-        BENCHMARK_SNAPSHOT_TEMPLATE_ROOT / "lakefile.toml",
+    write_text(
         BENCHMARK_SNAPSHOT_ROOT / "lakefile.toml",
+        benchmark_snapshot_lakefile(benchmark_repo),
     )
     shutil.copy2(benchmark_repo / "lean-toolchain", BENCHMARK_SNAPSHOT_ROOT / "lean-toolchain")
     module_imports: list[str] = []
