@@ -33,6 +33,7 @@ def theme (name : String) (siteName : String) : Theme := {
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <title>{{ title }} s!" | {siteName}"</title>
           {{← builtinHeader }}
+          <link rel="icon" type="image/svg+xml" href="static/favicon.svg"/>
           <link rel="stylesheet" href="static/style.css"/>
           <script defer="true" src="static/background.js"></script>
         </head>
