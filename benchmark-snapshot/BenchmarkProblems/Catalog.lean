@@ -1035,8 +1035,8 @@ theorem pullback_comp_apply (f : X → Y)
 -- ANCHOR: jacobian_challenge_diffgeo__degree
 def degree (f : X → Y)
     (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) : ℕ :=
-  sorry
--- ANCHOR_END: jacobian_challenge_diffgeo__degree -- 0 for constant case
+  sorry -- 0 for constant case
+-- ANCHOR_END: jacobian_challenge_diffgeo__degree
 -- ANCHOR: jacobian_challenge_diffgeo__pushforward_pullback
 theorem pushforward_pullback (f : X → Y)
     (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f)

@@ -281,7 +281,11 @@ def inject_multi_hole_anchor(problem: Problem, hole: Hole, source_text: str) -> 
 
     For multi-hole problems the per-hole `body` string is a verbatim
     substring of the generated `Challenge.lean`, so plain string search
-    suffices and we don't need to keyword-match across kinds."""
+    suffices and we don't need to keyword-match across kinds. Extend the
+    captured span to end-of-line so any trailing same-line `-- ...`
+    inline comments end up inside the anchor wrap rather than on the
+    closing marker line (which subverso parses as part of the anchor
+    name)."""
     aid = anchor_id(problem.id, hole)
     idx = source_text.find(hole.body)
     if idx < 0:
@@ -289,12 +293,16 @@ def inject_multi_hole_anchor(problem: Problem, hole: Hole, source_text: str) -> 
             f"Could not locate hole body for {problem.id}::{hole.basename} "
             f"in Challenge.lean — `body` field in holes.json must be a substring of the generated Challenge.lean."
         )
+    end_idx = idx + len(hole.body)
+    nl = source_text.find("\n", end_idx)
+    if nl != -1:
+        end_idx = nl
     return (
         source_text[:idx]
         + f"-- ANCHOR: {aid}\n"
-        + hole.body
+        + source_text[idx:end_idx]
         + f"\n-- ANCHOR_END: {aid}"
-        + source_text[idx + len(hole.body):]
+        + source_text[end_idx:]
     )
 
 
