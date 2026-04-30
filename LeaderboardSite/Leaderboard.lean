@@ -396,19 +396,17 @@ scoped syntax "leaderboard%" : term
 whose keys are problem ids and whose values are the spliced per-hole
 anchor terms. -/
 private def anchorMapTerm
-    (catalog : String) (problems : Array ProblemEntry)
+    (problems : Array ProblemEntry)
     (neededIds : Array String) : TermElabM (TSyntax `term) := do
   let needed := problems.filter fun p => neededIds.contains p.id
   needed.foldlM (init := ← `((∅ : Std.HashMap String (Array (Block Page))))) fun acc p => do
-    let anchors ← anchorBlockTerms catalog p
-    let anchorsArr : TSyntaxArray `term := anchors
+    let anchorsArr : TSyntaxArray `term := anchorBlockTerms p
     `(($acc).insert $(quote p.id) #[$anchorsArr,*])
 
 elab_rules : term
   | `(leaderboard%) => do
       let payload ← parseLeaderboardPayload
       let problemsPayload ← parseProblemsPayload
-      let catalog ← loadSnapshotCatalog
       let problems ← validateProblems problemsPayload
       let summary := payload.summary
       let entries := payload.entries
@@ -430,7 +428,7 @@ elab_rules : term
         let base := previewIds ++ entries.flatMap (·.notableProblemIds)
         base.foldl (init := #[]) fun acc id =>
           if acc.contains id then acc else acc.push id
-      let anchorMap ← anchorMapTerm catalog problems neededIds
+      let anchorMap ← anchorMapTerm problems neededIds
       let term ← `(leaderboardBlocks
         $(quote summary)
         $(quote problemTriples)

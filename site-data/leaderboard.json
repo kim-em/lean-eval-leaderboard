@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T13:27:53Z",
+  "generated_at": "2026-04-30T14:40:39Z",
   "results_repo": {
     "repo": "leanprover/lean-eval-leaderboard",
-    "commit": "b746b432c57ca32f9ba4289d1f0c6c9e1c050a28"
+    "commit": "6112c0710b59b75043b6994cf3beb036d83a578d"
   },
   "benchmark": {
     "repo": "leanprover/lean-eval",

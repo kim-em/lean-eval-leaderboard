@@ -283,23 +283,77 @@ def runPageDocElab (act : DocElabM α) : TermElabM α := do
   let (result, _) ← DocElabM.run ctx initDocState initPartState act
   pure result
 
-/-- One Verso anchor block per hole, in source order. Each anchor is
-spliced from `BenchmarkProblems.Catalog` and includes full syntax
-highlighting via Verso's `Code.External.anchor` machinery. -/
-def anchorBlockTerms (catalog : String) (problem : ProblemEntry) :
-    TermElabM (Array (TSyntax `term)) := do
+/-- Build a `TSyntax \`term` for one hole's Verso anchor. When elaborated,
+this expands into a deeply-nested `Block Page` value carrying the
+highlighted source. Each call yields a fresh expression tree. -/
+def inlineAnchorTerm (catalog : String) (problem : ProblemEntry) (hole : Hole) :
+    TermElabM (TSyntax `term) := do
   let moduleName := Lean.mkIdent `BenchmarkProblems.Catalog
-  problem.holes.mapM fun hole => do
-    let anchorId := holeAnchorId problem.id hole
-    let anchorName := Lean.mkIdent <| Lean.Name.mkSimple anchorId
-    let args : Array Verso.Doc.Arg := #[
-      .anon (.name anchorName),
-      .named .missing (Lean.mkIdent `module) (.name moduleName)
-    ]
-    let expected := Syntax.mkStrLit (← anchorSourceText catalog problem.id hole)
-    let terms ← runPageDocElab <| Verso.Code.External.anchor args expected
-    match terms[0]? with
-    | some term => pure term
-    | none => throwError "Anchor expander for '{anchorId}' returned no block"
+  let anchorId := holeAnchorId problem.id hole
+  let anchorName := Lean.mkIdent <| Lean.Name.mkSimple anchorId
+  let args : Array Verso.Doc.Arg := #[
+    .anon (.name anchorName),
+    .named .missing (Lean.mkIdent `module) (.name moduleName)
+  ]
+  let expected := Syntax.mkStrLit (← anchorSourceText catalog problem.id hole)
+  let terms ← runPageDocElab <| Verso.Code.External.anchor args expected
+  match terms[0]? with
+  | some term => pure term
+  | none => throwError "Anchor expander for '{anchorId}' returned no block"
+
+/-- Stable top-level constant name carrying one hole's anchor block.
+Each anchor lives in its own `def` so the page that uses them stays
+tractable for the Lean code generator (otherwise inlining 24+ Verso
+anchor expressions into a single problem fragment overflows codegen
+recursion). -/
+def anchorConstName (problemId : String) (hole : Hole) : Lean.Name :=
+  let leaf := s!"_anc_{problemId}__{hole.basename}"
+  (((Lean.Name.mkSimple "LeaderboardSite").str "Pages").str "Anchors").str leaf
+
+/-- Identifier referring to the top-level constant declared by
+`register_problem_anchors%` for this hole. -/
+def anchorConstIdent (problemId : String) (hole : Hole) : Lean.Ident :=
+  Lean.mkIdent (anchorConstName problemId hole)
+
+/-- One identifier reference per hole, in source order. The identifier
+points at the constant declared by `register_problem_anchors%`. -/
+def anchorBlockTerms (problem : ProblemEntry) : Array (TSyntax `term) :=
+  problem.holes.map fun hole => ⟨anchorConstIdent problem.id hole⟩
 
 end LeaderboardSite.Data
+
+open LeaderboardSite.Data
+
+/-- Register one top-level constant per `@[eval_problem]`-tagged hole, each
+of type `Block Page` and holding the Verso anchor block for that hole.
+Pages downstream (catalog and home-page popovers) reference these
+constants by name, which keeps each downstream `def`'s body small enough
+for the Lean code generator — inlining 24+ Verso anchors into a single
+`def`'s expression tree overflows the default codegen recursion budget.
+
+Runs at root scope so the emitted `def`s pick up the absolute name
+`LeaderboardSite.Pages.Anchors._anc_<id>__<basename>` rather than being
+nested under whatever namespace the invocation site happens to be in. -/
+syntax "register_problem_anchors%" : command
+
+elab_rules : command
+  | `(register_problem_anchors%) => do
+      let (catalog, problems) ← Lean.Elab.Command.runTermElabM fun _ => do
+        let payload ← parseProblemsPayload
+        let catalog ← loadSnapshotCatalog
+        let problems ← validateProblems payload
+        pure (catalog, problems)
+      for problem in problems do
+        for hole in problem.holes do
+          let constName := anchorConstName problem.id hole
+          if (← Lean.getEnv).contains constName then
+            continue
+          let anchorTerm ← Lean.Elab.Command.runTermElabM fun _ =>
+            inlineAnchorTerm catalog problem hole
+          let constIdent := Lean.mkIdent constName
+          let cmd ← `(def $constIdent : Block Page := $anchorTerm)
+          Lean.Elab.Command.elabCommand cmd
+
+/-- Run the registration at module-elaboration time so all downstream
+pages can reference the constants by name. -/
+register_problem_anchors%
