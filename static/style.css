@@ -629,6 +629,14 @@ nav.top .home {
   color: #d7e2e6;
 }
 
+/* Stack multi-hole anchor blocks with a small gap. Used both inside the
+   popover (`.theorem-card .hole`) and on the problems page, where each
+   `@[eval_problem]`-annotated declaration tied to a manifest entry is
+   rendered as its own highlighted block. */
+.hole + .hole {
+  margin-top: 0.75rem;
+}
+
 .theorem-card-rendered .hl.lean.block {
   margin: 8px 0 0;
   padding: 14px;
