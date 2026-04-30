@@ -859,8 +859,6 @@ theorem gleason_theorem_separable {H : Type*} [NormedAddCommGroup H] [InnerProdu
 
 end ProblemGleasonTheoremSeparable
 
-namespace ProblemJacobianChallengeDiffgeo
-
 /-!
 # Jacobians of compact Riemann surfaces
 
@@ -1050,10 +1048,6 @@ end Jacobian
 
 end JacobianChallenge
 
-end ProblemJacobianChallengeDiffgeo
-
-namespace ProblemJacobianChallengeAlggeo
-
 /-
 Copyright (c) 2026 Christian Merten. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
@@ -1196,10 +1190,6 @@ end JacobianChallenge
 
 end AlgebraicGeometry
 
-end ProblemJacobianChallengeAlggeo
-
-namespace ProblemDefHoleExample
-
 /-!
 Minimal example exercising the def-hole / multi-hole eval-problem pipeline.
 
@@ -1214,10 +1204,6 @@ def foo : Nat := sorry
 theorem foo_def : foo = 37 := sorry
 -- ANCHOR_END: def_hole_example__foo_def
 
-end ProblemDefHoleExample
-
-namespace ProblemInstanceHoleExample
-
 /-!
 Minimal example exercising `instance` holes in the multi-hole
 eval-problem pipeline. The carrier type is itself a hole so the source
@@ -1230,5 +1216,3 @@ def WidgetCarrier : Type := sorry
 -- ANCHOR: instance_hole_example__instInhabitedWidget
 instance instInhabitedWidget : Inhabited WidgetCarrier := sorry
 -- ANCHOR_END: instance_hole_example__instInhabitedWidget
-
-end ProblemInstanceHoleExample

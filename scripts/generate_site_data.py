@@ -365,15 +365,30 @@ def write_benchmark_snapshot(benchmark_repo: pathlib.Path, problems: list[Proble
         for line in imports:
             if line not in module_imports:
                 module_imports.append(line)
-        namespace = snapshot_namespace(problem)
-        module_lines.append(f"namespace {namespace}")
-        module_lines.append("")
-        for fragment in fragments:
-            if fragment:
-                module_lines.append(fragment)
-                module_lines.append("")
-        module_lines.append(f"end {namespace}")
-        module_lines.append("")
+        # Legacy single-theorem problems get a per-problem `namespace
+        # Problem<CamelId>` wrap so their `ChallengeDeps`-derived helpers
+        # (often in shared namespaces like `Foo.bar`) don't collide
+        # across problems. Multi-hole problems instead reproduce the
+        # source module's full namespace structure verbatim, which both
+        # gives the bodies the original namespace context they need to
+        # type-check (e.g. references to `Spec` inside `namespace
+        # AlgebraicGeometry`) and isolates each problem under its
+        # original module's logical namespace path.
+        if is_legacy_single_theorem(problem):
+            namespace = snapshot_namespace(problem)
+            module_lines.append(f"namespace {namespace}")
+            module_lines.append("")
+            for fragment in fragments:
+                if fragment:
+                    module_lines.append(fragment)
+                    module_lines.append("")
+            module_lines.append(f"end {namespace}")
+            module_lines.append("")
+        else:
+            for fragment in fragments:
+                if fragment:
+                    module_lines.append(fragment)
+                    module_lines.append("")
 
     catalog_path = BENCHMARK_SNAPSHOT_ROOT / "BenchmarkProblems" / "Catalog.lean"
     write_text(catalog_path, "\n".join(module_imports + [""] + module_lines).rstrip() + "\n")
