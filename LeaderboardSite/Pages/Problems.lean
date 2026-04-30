@@ -70,23 +70,38 @@ private def sourceParagraphTerm (problem : ProblemEntry) : TermElabM (TSyntax `t
 private def holeWrap (child : Block Page) : Block Page :=
   .other (BlockExt.htmlDiv "hole") #[child]
 
+/-- Assemble one problem's `Part Page` at runtime from the spliced anchor
+blocks. Routing per-problem assembly through this function keeps the
+elaborator-time syntax tree shallow (one runtime call per problem rather
+than a 5-plus-#holes literal), which avoids the code generator's
+maximum-recursion-depth limit on problems with many holes. -/
+private def assembleProblemPart
+    (title id submitterText : String)
+    (notes source solution : Block Page)
+    (anchors : Array (Block Page)) : Part Page :=
+  let prelude : Array (Block Page) := #[
+    paragraph #[codeInline id],
+    paragraph #[textInline submitterText],
+    notes,
+    source,
+    solution
+  ]
+  pagePart title (prelude ++ anchors.map holeWrap) #[] (some id)
+
 private def problemPartTerm (catalog : String) (problem : ProblemEntry) : TermElabM (TSyntax `term) := do
   let notesBlock ← optionalParagraphTerm "Notes" problem.notesText
   let sourceBlock ← sourceParagraphTerm problem
   let solutionBlock ← optionalParagraphTerm "Informal solution" problem.informalSolution
   let anchors ← anchorBlockTerms catalog problem
-  -- Wrap each hole's anchor block in a `<div class="hole">` so multiple
-  -- holes stack with the spacing rule defined in `static/style.css`.
-  let holeBlocks ← anchors.mapM fun anchor => `(holeWrap $anchor)
-  let holeBlocks : TSyntaxArray `term := holeBlocks
-  `(pagePart $(quote problem.title) #[
-      paragraph #[codeInline $(quote problem.id)],
-      paragraph #[textInline $(quote s!"Submitter: {problem.submitter}.")],
-      $notesBlock,
-      $sourceBlock,
-      $solutionBlock,
-      $holeBlocks,*
-    ] #[] (some $(quote problem.id)))
+  let anchorsArr : TSyntaxArray `term := anchors
+  `(assembleProblemPart
+      $(quote problem.title)
+      $(quote problem.id)
+      $(quote s!"Submitter: {problem.submitter}.")
+      $notesBlock
+      $sourceBlock
+      $solutionBlock
+      #[$anchorsArr,*])
 
 private def sectionPartTerm (catalog : String) (title : String) (htmlId : String)
     (problems : Array ProblemEntry) : TermElabM (TSyntax `term) := do
