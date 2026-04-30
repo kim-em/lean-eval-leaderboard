@@ -67,10 +67,8 @@ private def sourceParagraphTerm (problem : ProblemEntry) : TermElabM (TSyntax `t
   | none =>
       `(paragraph #[textInline $(quote s!"Source: {unavailableText}")])
 
-private def divBlockTerm (cls : String) (children : Array (TSyntax `term)) :
-    TermElabM (TSyntax `term) := do
-  let children' : TSyntaxArray `term := children
-  `(((Block.other (BlockExt.htmlDiv $(quote cls)) #[$children',*]) : Block Page))
+private def holeWrap (child : Block Page) : Block Page :=
+  .other (BlockExt.htmlDiv "hole") #[child]
 
 private def problemPartTerm (catalog : String) (problem : ProblemEntry) : TermElabM (TSyntax `term) := do
   let notesBlock ← optionalParagraphTerm "Notes" problem.notesText
@@ -79,7 +77,7 @@ private def problemPartTerm (catalog : String) (problem : ProblemEntry) : TermEl
   let anchors ← anchorBlockTerms catalog problem
   -- Wrap each hole's anchor block in a `<div class="hole">` so multiple
   -- holes stack with the spacing rule defined in `static/style.css`.
-  let holeBlocks ← anchors.mapM fun anchor => divBlockTerm "hole" #[anchor]
+  let holeBlocks ← anchors.mapM fun anchor => `(holeWrap $anchor)
   let holeBlocks : TSyntaxArray `term := holeBlocks
   `(pagePart $(quote problem.title) #[
       paragraph #[codeInline $(quote problem.id)],
