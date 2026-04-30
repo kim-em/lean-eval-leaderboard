@@ -179,7 +179,8 @@ private def problemItem
     (anchorMap : Std.HashMap String (Block Page))
     (problemId : String) (title : String) (statement : String)
     (proofUrl? : Option String)
-    (rarityRank? : Option Nat) : Block Page :=
+    (rarityRank? : Option Nat)
+    (productionDescription? : Option String) : Block Page :=
   let problemHref := s!"problems/#{problemId}"
   let titleLink := htmlBlobBlock {{
     <a class="problem-title-link" href={{problemHref}}>{{textHtml title}}</a>
@@ -194,6 +195,19 @@ private def problemItem
         <span class="problem-meta">{{textHtml s!"#{r}"}}</span>
       }}
     | none => htmlBlobBlock {{ <span></span> }}
+  let productionNote := match productionDescription? with
+    | some description =>
+      let trimmed := description.trim
+      if trimmed.isEmpty then
+        htmlBlobBlock {{ <span></span> }}
+      else
+        htmlBlobBlock {{
+          <details class="production-note">
+            <summary>"How produced"</summary>
+            <p>{{textHtml trimmed}}</p>
+          </details>
+        }}
+    | none => htmlBlobBlock {{ <span></span> }}
   divBlock "problem-item" #[
     titleLink,
     divBlock "problem-meta-row" #[
@@ -205,7 +219,8 @@ private def problemItem
       ],
       rarityChip,
       proofLink
-    ]
+    ],
+    productionNote
   ]
 
 /-! ## Per-row (model) `<details>` block -/
@@ -248,6 +263,7 @@ private def entryBody
         let (title, statement) := problemTitleAndStatement problems item.problemId
         let proofUrl? := if item.publicSolution.available then item.publicSolution.url else none
         problemItem anchorMap item.problemId title statement proofUrl? (some item.rarityRank)
+          item.productionDescription
   let submitters : Html :=
     if entry.submitters.isEmpty then
       {{ <span class="empty-inline">"None"</span> }}
@@ -304,7 +320,7 @@ private def emptyShowcase
     (anchorMap : Std.HashMap String (Block Page))
     (preview : Array (String × String × String)) : Block Page :=
   let previewItems : Array (Block Page) := preview.map fun (id, title, statement) =>
-    problemItem anchorMap id title statement none none
+    problemItem anchorMap id title statement none none none
   divBlock "empty-showcase" #[
     divBlock "empty-copy" #[
       sectionLabel "No public solves yet",
