@@ -1,22 +1,114 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-18T08:07:14Z",
+  "generated_at": "2026-04-30T10:22:30Z",
   "results_repo": {
     "repo": "leanprover/lean-eval-leaderboard",
-    "commit": "74c82d7d2eac199c6a7636822d18c7fbf85a663e"
+    "commit": "46c4f397a89303c8e8749bd4a35836384beed307"
   },
   "benchmark": {
     "repo": "leanprover/lean-eval",
-    "commit": "97fbfe2dd049375534df6c4e018fb86bbcec183c"
+    "commit": "48b8530beb9ff567d8932326aaec1e1acb67b749"
   },
   "summary": {
-    "models": 1,
-    "submitters": 1,
-    "problems": 29,
-    "main_problems": 27,
-    "test_problems": 2
+    "models": 2,
+    "submitters": 2,
+    "problems": 32,
+    "main_problems": 29,
+    "test_problems": 3
   },
   "entries": [
+    {
+      "model_id": "claude-opus-4-7-with-1m-context",
+      "model_name": "Claude Opus 4.7 with 1M context",
+      "score": {
+        "solved_total": 3,
+        "solved_main": 1,
+        "solved_test": 2,
+        "display": "3"
+      },
+      "first_solved_at": "2026-04-30T10:05:19Z",
+      "last_solved_at": "2026-04-30T10:05:19Z",
+      "submitter_count": 1,
+      "submitters": [
+        {
+          "user": "rkirov",
+          "solved_total": 3
+        }
+      ],
+      "solved_problem_ids": [
+        "finite_graph_ramsey_theorem",
+        "list_append_singleton_length",
+        "two_plus_two"
+      ],
+      "notable_problem_ids": [
+        "finite_graph_ramsey_theorem",
+        "list_append_singleton_length",
+        "two_plus_two"
+      ],
+      "solved_problems": [
+        {
+          "problem_id": "finite_graph_ramsey_theorem",
+          "solved_at": "2026-04-30T10:05:19Z",
+          "rarity_rank": 1,
+          "rarity_score": 1020573,
+          "public_solution": {
+            "available": true,
+            "repo": "rkirov/lean-eval",
+            "ref": "212bebf172ea4a345071d0b3fc40a978515d09c6",
+            "url": "https://github.com/rkirov/lean-eval/tree/212bebf172ea4a345071d0b3fc40a978515d09c6/generated/finite_graph_ramsey_theorem"
+          },
+          "provenance": {
+            "user": "rkirov",
+            "issue_number": 21,
+            "benchmark_commit": "48b8530beb9ff567d8932326aaec1e1acb67b749",
+            "submission_repo": "rkirov/lean-eval",
+            "submission_ref": "212bebf172ea4a345071d0b3fc40a978515d09c6"
+          },
+          "production_description": null
+        },
+        {
+          "problem_id": "list_append_singleton_length",
+          "solved_at": "2026-04-30T10:05:19Z",
+          "rarity_rank": 2,
+          "rarity_score": 1020573,
+          "public_solution": {
+            "available": true,
+            "repo": "rkirov/lean-eval",
+            "ref": "212bebf172ea4a345071d0b3fc40a978515d09c6",
+            "url": "https://github.com/rkirov/lean-eval/tree/212bebf172ea4a345071d0b3fc40a978515d09c6/generated/list_append_singleton_length"
+          },
+          "provenance": {
+            "user": "rkirov",
+            "issue_number": 21,
+            "benchmark_commit": "48b8530beb9ff567d8932326aaec1e1acb67b749",
+            "submission_repo": "rkirov/lean-eval",
+            "submission_ref": "212bebf172ea4a345071d0b3fc40a978515d09c6"
+          },
+          "production_description": null
+        },
+        {
+          "problem_id": "two_plus_two",
+          "solved_at": "2026-04-30T10:05:19Z",
+          "rarity_rank": 3,
+          "rarity_score": 20573,
+          "public_solution": {
+            "available": true,
+            "repo": "rkirov/lean-eval",
+            "ref": "212bebf172ea4a345071d0b3fc40a978515d09c6",
+            "url": "https://github.com/rkirov/lean-eval/tree/212bebf172ea4a345071d0b3fc40a978515d09c6/generated/two_plus_two"
+          },
+          "provenance": {
+            "user": "rkirov",
+            "issue_number": 21,
+            "benchmark_commit": "48b8530beb9ff567d8932326aaec1e1acb67b749",
+            "submission_repo": "rkirov/lean-eval",
+            "submission_ref": "212bebf172ea4a345071d0b3fc40a978515d09c6"
+          },
+          "production_description": null
+        }
+      ],
+      "rank": 1
+    },
     {
       "model_id": "dogfood",
       "model_name": "dogfood",
@@ -26,8 +118,8 @@
         "solved_test": 1,
         "display": "1"
       },
-      "first_solved_at": "2026-04-12T03:27:23Z",
-      "last_solved_at": "2026-04-12T03:27:23Z",
+      "first_solved_at": "2026-04-30T10:01:20Z",
+      "last_solved_at": "2026-04-30T10:01:20Z",
       "submitter_count": 1,
       "submitters": [
         {
@@ -44,9 +136,9 @@
       "solved_problems": [
         {
           "problem_id": "two_plus_two",
-          "solved_at": "2026-04-12T03:27:23Z",
+          "solved_at": "2026-04-30T10:01:20Z",
           "rarity_rank": 1,
-          "rarity_score": 20555,
+          "rarity_score": 20573,
           "public_solution": {
             "available": false,
             "repo": null,
@@ -55,14 +147,15 @@
           },
           "provenance": {
             "user": "kim-em",
-            "issue_number": 2,
-            "benchmark_commit": "739e919f0086658c97055e80e06e540f81c74d42",
+            "issue_number": 30,
+            "benchmark_commit": "48b8530beb9ff567d8932326aaec1e1acb67b749",
             "submission_repo": "kim-em/lean-eval-dogfood",
             "submission_ref": "d4f2f309e180037f352f8e6086dd4063ccbdce00"
-          }
+          },
+          "production_description": "Hand-written dogfood proof to populate the leaderboard end-to-end during development. The two_plus_two problem reduces to decide / definitional reduction on 2 + 2 = 4 : \u2115, so the \"solution\" is essentially a one-liner with no model or orchestrator involved. Human time: a few seconds. AI time, tokens, and cost: zero \u2014 no LLM was invoked. This entry exists to demonstrate the new \"How produced\" field on the leaderboard, not as a real benchmark result."
         }
       ],
-      "rank": 1
+      "rank": 2
     }
   ]
 }
