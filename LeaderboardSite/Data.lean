@@ -124,6 +124,7 @@ structure SolvedProblem where
   solvedAt : String
   rarityRank : Nat
   publicSolution : PublicSolution
+  productionDescription : Option String
 deriving Quote, Inhabited, Repr
 
 instance : FromJson SolvedProblem where
@@ -133,6 +134,7 @@ instance : FromJson SolvedProblem where
       solvedAt := ← json.getObjValAs? String "solved_at"
       rarityRank := ← json.getObjValAs? Nat "rarity_rank"
       publicSolution := ← json.getObjValAs? PublicSolution "public_solution"
+      productionDescription := (json.getObjValAs? String "production_description").toOption
     }
 
 structure LeaderboardEntry where
