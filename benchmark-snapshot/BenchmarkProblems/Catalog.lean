@@ -2,29 +2,29 @@ import Mathlib
 
 namespace ProblemTwoPlusTwo
 
--- ANCHOR: two_plus_two
+-- ANCHOR: two_plus_two__two_plus_two_eq_four
 theorem two_plus_two_eq_four : (2 : Nat) + 2 = 4 := by
   sorry
--- ANCHOR_END: two_plus_two
+-- ANCHOR_END: two_plus_two__two_plus_two_eq_four
 
 end ProblemTwoPlusTwo
 
 namespace ProblemCiRegenerateMainCheck
 
--- ANCHOR: ci_regenerate_main_check
+-- ANCHOR: ci_regenerate_main_check__ci_regenerate_main_check
 theorem ci_regenerate_main_check : True := by
   sorry
--- ANCHOR_END: ci_regenerate_main_check
+-- ANCHOR_END: ci_regenerate_main_check__ci_regenerate_main_check
 
 end ProblemCiRegenerateMainCheck
 
 namespace ProblemListAppendSingletonLength
 
--- ANCHOR: list_append_singleton_length
+-- ANCHOR: list_append_singleton_length__list_append_singleton_length
 theorem list_append_singleton_length :
     (([1, 2] : List Nat).append [3]).length = 3 := by
   sorry
--- ANCHOR_END: list_append_singleton_length
+-- ANCHOR_END: list_append_singleton_length__list_append_singleton_length
 
 end ProblemListAppendSingletonLength
 
@@ -32,21 +32,21 @@ namespace ProblemChudnovskyFormulaForPiInv
 
 open scoped Real
 
--- ANCHOR: chudnovsky_formula_for_pi_inv
+-- ANCHOR: chudnovsky_formula_for_pi_inv__chudnovsky_formula_for_pi_inv
 theorem chudnovsky_formula_for_pi_inv :
     chudnovskySum = π⁻¹ := by
   sorry
--- ANCHOR_END: chudnovsky_formula_for_pi_inv
+-- ANCHOR_END: chudnovsky_formula_for_pi_inv__chudnovsky_formula_for_pi_inv
 
 end ProblemChudnovskyFormulaForPiInv
 
 namespace ProblemPi1CircleMulEquivInt
 
--- ANCHOR: pi1_circle_mulEquiv_int
+-- ANCHOR: pi1_circle_mulEquiv_int__pi1_circle_mulEquiv_int
 theorem pi1_circle_mulEquiv_int :
     Nonempty (HomotopyGroup.Pi 1 Circle (1 : Circle) ≃* Multiplicative ℤ) := by
   sorry
--- ANCHOR_END: pi1_circle_mulEquiv_int
+-- ANCHOR_END: pi1_circle_mulEquiv_int__pi1_circle_mulEquiv_int
 
 end ProblemPi1CircleMulEquivInt
 
@@ -54,11 +54,11 @@ namespace ProblemFiniteGraphRamseyTheorem
 
 open SimpleGraph
 
--- ANCHOR: finite_graph_ramsey_theorem
+-- ANCHOR: finite_graph_ramsey_theorem__finite_graph_ramsey_theorem
 theorem finite_graph_ramsey_theorem :
     ∀ r s : ℕ, 2 ≤ r → 2 ≤ s → ∃ n : ℕ, ∀ G : SimpleGraph (Fin n), ¬ G.CliqueFree r ∨ ¬ Gᶜ.CliqueFree s := by
   sorry
--- ANCHOR_END: finite_graph_ramsey_theorem
+-- ANCHOR_END: finite_graph_ramsey_theorem__finite_graph_ramsey_theorem
 
 end ProblemFiniteGraphRamseyTheorem
 
@@ -66,14 +66,14 @@ namespace ProblemSubstInvXSubXSqEqCatalan
 
 open PowerSeries
 
--- ANCHOR: substInv_X_sub_X_sq_eq_catalan
+-- ANCHOR: substInv_X_sub_X_sq_eq_catalan__substInv_X_sub_X_sq_eq_catalan
 theorem substInv_X_sub_X_sq_eq_catalan (n : ℕ) :
     haveI : Invertible (coeff 1 ((X : ℚ⟦X⟧) - X ^ 2)) := by
       simp [coeff_X, coeff_X_pow]; exact invertibleOne
     coeff (n + 1) (substInv ((X : ℚ⟦X⟧) - X ^ 2)) =
       (Nat.choose (2 * n) n : ℚ) / (↑n + 1) := by
   sorry
--- ANCHOR_END: substInv_X_sub_X_sq_eq_catalan
+-- ANCHOR_END: substInv_X_sub_X_sq_eq_catalan__substInv_X_sub_X_sq_eq_catalan
 
 end ProblemSubstInvXSubXSqEqCatalan
 
@@ -106,11 +106,11 @@ end LeanEval
 open LeanEval.NumberTheory
 open scoped ArithmeticFunction.sigma
 
--- ANCHOR: riemann_hypothesis_iff_lagarias_elementary_criterion
+-- ANCHOR: riemann_hypothesis_iff_lagarias_elementary_criterion__riemann_hypothesis_iff_lagarias_elementary_criterion
 theorem riemann_hypothesis_iff_lagarias_elementary_criterion :
     RiemannHypothesis ↔ LeanEval.NumberTheory.LagariasElementaryCriterion := by
   sorry
--- ANCHOR_END: riemann_hypothesis_iff_lagarias_elementary_criterion
+-- ANCHOR_END: riemann_hypothesis_iff_lagarias_elementary_criterion__riemann_hypothesis_iff_lagarias_elementary_criterion
 
 end ProblemRiemannHypothesisIffLagariasElementaryCriterion
 
@@ -176,66 +176,66 @@ end LeanEval
 open LeanEval.Combinatorics
 open scoped BigOperators
 
--- ANCHOR: dvd_card_connectedComponent_markoffGraph
+-- ANCHOR: dvd_card_connectedComponent_markoffGraph__dvd_card_connectedComponent_markoffGraph
 theorem dvd_card_connectedComponent_markoffGraph {p : ℕ} (hp : Nat.Prime p) (hgt : 3 < p) :
     ∀ c : (LeanEval.Combinatorics.markoffGraph p).ConnectedComponent, p ∣ Nat.card c := by
   sorry
--- ANCHOR_END: dvd_card_connectedComponent_markoffGraph
+-- ANCHOR_END: dvd_card_connectedComponent_markoffGraph__dvd_card_connectedComponent_markoffGraph
 
 end ProblemDvdCardConnectedComponentMarkoffGraph
 
 namespace ProblemMulCayleyConnectedIffClosureEqTop
 
--- ANCHOR: mulCayley_connected_iff_closure_eq_top
+-- ANCHOR: mulCayley_connected_iff_closure_eq_top__mulCayley_connected_iff_closure_eq_top
 theorem mulCayley_connected_iff_closure_eq_top {G : Type*} [Group G]
     (S : Set G) :
     (SimpleGraph.mulCayley S).Connected ↔ Subgroup.closure S = ⊤ := by
   sorry
--- ANCHOR_END: mulCayley_connected_iff_closure_eq_top
+-- ANCHOR_END: mulCayley_connected_iff_closure_eq_top__mulCayley_connected_iff_closure_eq_top
 
 end ProblemMulCayleyConnectedIffClosureEqTop
 
 namespace ProblemPi3SphereTwoMulEquivInt
 
--- ANCHOR: pi3_sphere_two_mulEquiv_int
+-- ANCHOR: pi3_sphere_two_mulEquiv_int__pi3_sphere_two_mulEquiv_int
 theorem pi3_sphere_two_mulEquiv_int (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin 3)) 1) :
     Nonempty
       (HomotopyGroup.Pi 3 (Metric.sphere (0 : EuclideanSpace ℝ (Fin 3)) 1) x ≃*
         Multiplicative ℤ) := by
   sorry
--- ANCHOR_END: pi3_sphere_two_mulEquiv_int
+-- ANCHOR_END: pi3_sphere_two_mulEquiv_int__pi3_sphere_two_mulEquiv_int
 
 end ProblemPi3SphereTwoMulEquivInt
 
 namespace ProblemPinSphereNMulEquivInt
 
--- ANCHOR: pin_sphere_n_mulEquiv_int
+-- ANCHOR: pin_sphere_n_mulEquiv_int__pin_sphere_n_mulEquiv_int
 theorem pin_sphere_n_mulEquiv_int (n : ℕ)
     (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 2))) 1) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) (Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 2))) 1) x ≃*
         Multiplicative ℤ) := by
   sorry
--- ANCHOR_END: pin_sphere_n_mulEquiv_int
+-- ANCHOR_END: pin_sphere_n_mulEquiv_int__pin_sphere_n_mulEquiv_int
 
 end ProblemPinSphereNMulEquivInt
 
 namespace ProblemPiSuccSphereNMulEquivZmodTwo
 
--- ANCHOR: pi_succ_sphere_n_mulEquiv_zmod_two
+-- ANCHOR: pi_succ_sphere_n_mulEquiv_zmod_two__pi_succ_sphere_n_mulEquiv_zmod_two
 theorem pi_succ_sphere_n_mulEquiv_zmod_two (n : ℕ) (hn : 3 ≤ n)
     (x : Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 1))) 1) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) (Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 1))) 1) x ≃*
         Multiplicative (ZMod 2)) := by
   sorry
--- ANCHOR_END: pi_succ_sphere_n_mulEquiv_zmod_two
+-- ANCHOR_END: pi_succ_sphere_n_mulEquiv_zmod_two__pi_succ_sphere_n_mulEquiv_zmod_two
 
 end ProblemPiSuccSphereNMulEquivZmodTwo
 
 namespace ProblemFiniteGroupIsSolvableOfCardEqPrimePowMulPrimePow
 
--- ANCHOR: finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow
+-- ANCHOR: finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow__finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow
 theorem finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow {G : Type*} [Group G] [Fintype G]
     {p q a b : ℕ}
     (hp : Nat.Prime p)
@@ -244,7 +244,7 @@ theorem finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow {G : Type*} [
     (hcard : Fintype.card G = p ^ a * q ^ b) :
     IsSolvable G := by
   sorry
--- ANCHOR_END: finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow
+-- ANCHOR_END: finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow__finite_group_isSolvable_of_card_eq_prime_pow_mul_prime_pow
 
 end ProblemFiniteGroupIsSolvableOfCardEqPrimePowMulPrimePow
 
@@ -252,7 +252,7 @@ namespace ProblemRoucheLogCountingZeroEq
 
 open ValueDistribution
 
--- ANCHOR: rouche_logCounting_zero_eq
+-- ANCHOR: rouche_logCounting_zero_eq__rouche_logCounting_zero_eq
 theorem rouche_logCounting_zero_eq {f g : ℂ → ℂ} {R : ℝ}
     (hR : 1 ≤ R)
     (hf : Meromorphic f)
@@ -260,7 +260,7 @@ theorem rouche_logCounting_zero_eq {f g : ℂ → ℂ} {R : ℝ}
     (hbound : ∀ z : ℂ, ‖z‖ = R → ‖g z‖ < ‖f z‖) :
     logCounting (f + g) 0 R = logCounting f 0 R := by
   sorry
--- ANCHOR_END: rouche_logCounting_zero_eq
+-- ANCHOR_END: rouche_logCounting_zero_eq__rouche_logCounting_zero_eq
 
 end ProblemRoucheLogCountingZeroEq
 
@@ -268,7 +268,7 @@ namespace ProblemMemConvexHullFinsetExtremePointsOfMemCompactConvex
 
 open Set
 
--- ANCHOR: mem_convexHull_finset_extremePoints_of_mem_compact_convex
+-- ANCHOR: mem_convexHull_finset_extremePoints_of_mem_compact_convex__mem_convexHull_finset_extremePoints_of_mem_compact_convex
 theorem mem_convexHull_finset_extremePoints_of_mem_compact_convex {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
     {s : Set E} {x : E}
     (hscomp : IsCompact s)
@@ -279,7 +279,7 @@ theorem mem_convexHull_finset_extremePoints_of_mem_compact_convex {E : Type*} [N
       t.card ≤ Module.finrank ℝ E + 1 ∧
       x ∈ convexHull ℝ (↑t : Set E) := by
   sorry
--- ANCHOR_END: mem_convexHull_finset_extremePoints_of_mem_compact_convex
+-- ANCHOR_END: mem_convexHull_finset_extremePoints_of_mem_compact_convex__mem_convexHull_finset_extremePoints_of_mem_compact_convex
 
 end ProblemMemConvexHullFinsetExtremePointsOfMemCompactConvex
 
@@ -287,7 +287,7 @@ namespace ProblemIrreducibleNonnegativeMatrixHasPositiveEigenvectorAtSpectralRad
 
 open scoped NNReal
 
--- ANCHOR: irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius
+-- ANCHOR: irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius__irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius
 theorem irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius {n : Type*} [Fintype n] [DecidableEq n]
     (A : Matrix n n ℝ)
     (hA : A.IsIrreducible) :
@@ -295,7 +295,7 @@ theorem irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadiu
       Module.End.HasEigenvector (Matrix.toLin' A) (spectralRadius ℝ A).toReal v ∧
       (∀ i, 0 < v i) := by
   sorry
--- ANCHOR_END: irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius
+-- ANCHOR_END: irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius__irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius
 
 end ProblemIrreducibleNonnegativeMatrixHasPositiveEigenvectorAtSpectralRadius
 
@@ -303,26 +303,26 @@ namespace ProblemExistsComplementaryPolynomialOnUnitCircle
 
 open Polynomial
 
--- ANCHOR: exists_complementary_polynomial_on_unit_circle
+-- ANCHOR: exists_complementary_polynomial_on_unit_circle__exists_complementary_polynomial_on_unit_circle
 theorem exists_complementary_polynomial_on_unit_circle (P : ℂ[X])
     (hP : ∀ z : Circle, ‖P.eval (z : ℂ)‖ ≤ 1) :
     ∃ Q : ℂ[X],
       Q.natDegree = P.natDegree ∧
         ∀ z : Circle, ‖P.eval (z : ℂ)‖ ^ 2 + ‖Q.eval (z : ℂ)‖ ^ 2 = 1 := by
   sorry
--- ANCHOR_END: exists_complementary_polynomial_on_unit_circle
+-- ANCHOR_END: exists_complementary_polynomial_on_unit_circle__exists_complementary_polynomial_on_unit_circle
 
 end ProblemExistsComplementaryPolynomialOnUnitCircle
 
 namespace ProblemIsStarNormalMulOfCommute
 
--- ANCHOR: isStarNormal_mul_of_commute
+-- ANCHOR: isStarNormal_mul_of_commute__isStarNormal_mul_of_commute
 theorem isStarNormal_mul_of_commute {A : Type*} [NonUnitalCStarAlgebra A]
     {a b : A} (ha : IsStarNormal a) (hb : IsStarNormal b)
     (hab : Commute a b) :
     IsStarNormal (a * b) := by
   sorry
--- ANCHOR_END: isStarNormal_mul_of_commute
+-- ANCHOR_END: isStarNormal_mul_of_commute__isStarNormal_mul_of_commute
 
 end ProblemIsStarNormalMulOfCommute
 
@@ -330,12 +330,12 @@ namespace ProblemPosSemidefMapExp
 
 open scoped MatrixOrder Matrix
 
--- ANCHOR: posSemidef_map_exp
+-- ANCHOR: posSemidef_map_exp__posSemidef_map_exp
 theorem posSemidef_map_exp {n : Type*} [Fintype n] [DecidableEq n]
     {A : Matrix n n ℝ} (hA : A.PosSemidef) :
     (A.map Real.exp).PosSemidef := by
   sorry
--- ANCHOR_END: posSemidef_map_exp
+-- ANCHOR_END: posSemidef_map_exp__posSemidef_map_exp
 
 end ProblemPosSemidefMapExp
 
@@ -343,18 +343,18 @@ namespace ProblemOppenheimInequality
 
 open scoped MatrixOrder Matrix
 
--- ANCHOR: oppenheim_inequality
+-- ANCHOR: oppenheim_inequality__oppenheim_inequality
 theorem oppenheim_inequality {n : Type*} [Fintype n] [DecidableEq n]
     {A B : Matrix n n ℝ} (hA : A.PosSemidef) (hB : B.PosSemidef) :
     A.det * ∏ i, B i i ≤ (A ⊙ B).det := by
   sorry
--- ANCHOR_END: oppenheim_inequality
+-- ANCHOR_END: oppenheim_inequality__oppenheim_inequality
 
 end ProblemOppenheimInequality
 
 namespace ProblemVonNeumannDoubleCommutantTfae
 
--- ANCHOR: vonNeumann_doubleCommutant_tfae
+-- ANCHOR: vonNeumann_doubleCommutant_tfae__vonNeumann_doubleCommutant_tfae
 theorem vonNeumann_doubleCommutant_tfae {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
     (S : StarSubalgebra ℂ (H →L[ℂ] H)) :
     List.TFAE
@@ -365,7 +365,7 @@ theorem vonNeumann_doubleCommutant_tfae {H : Type*} [NormedAddCommGroup H] [Inne
           (ContinuousLinearMap.toPointwiseConvergenceCLM ℂ (RingHom.id ℂ) H H ''
             (S : Set (H →L[ℂ] H))) ] := by
   sorry
--- ANCHOR_END: vonNeumann_doubleCommutant_tfae
+-- ANCHOR_END: vonNeumann_doubleCommutant_tfae__vonNeumann_doubleCommutant_tfae
 
 end ProblemVonNeumannDoubleCommutantTfae
 
@@ -420,14 +420,14 @@ end LeanEval
 open LeanEval.RepresentationTheory
 open scoped TensorProduct
 
--- ANCHOR: symAction_range_eq_centralizer_glAction
+-- ANCHOR: symAction_range_eq_centralizer_glAction__symAction_range_eq_centralizer_glAction
 theorem symAction_range_eq_centralizer_glAction {R : Type*} [Field R]
     {M : Type*} [AddCommGroup M] [Module R M] [FiniteDimensional R M]
     {k : ℕ} [Invertible (k.factorial : R)] :
     Algebra.adjoin R (Set.range (LeanEval.RepresentationTheory.symAction R M k)) =
       Subalgebra.centralizer R (Set.range (LeanEval.RepresentationTheory.glAction R M k)) := by
   sorry
--- ANCHOR_END: symAction_range_eq_centralizer_glAction
+-- ANCHOR_END: symAction_range_eq_centralizer_glAction__symAction_range_eq_centralizer_glAction
 
 end ProblemSymActionRangeEqCentralizerGlAction
 
@@ -482,14 +482,14 @@ end LeanEval
 open LeanEval.RepresentationTheory
 open scoped TensorProduct
 
--- ANCHOR: glAction_range_eq_centralizer_symAction
+-- ANCHOR: glAction_range_eq_centralizer_symAction__glAction_range_eq_centralizer_symAction
 theorem glAction_range_eq_centralizer_symAction {R : Type*} [Field R]
     {M : Type*} [AddCommGroup M] [Module R M] [FiniteDimensional R M]
     {k : ℕ} [Invertible (k.factorial : R)] :
     Algebra.adjoin R (Set.range (LeanEval.RepresentationTheory.glAction R M k)) =
       Subalgebra.centralizer R (Set.range (LeanEval.RepresentationTheory.symAction R M k)) := by
   sorry
--- ANCHOR_END: glAction_range_eq_centralizer_symAction
+-- ANCHOR_END: glAction_range_eq_centralizer_symAction__glAction_range_eq_centralizer_symAction
 
 end ProblemGlActionRangeEqCentralizerSymAction
 
@@ -544,7 +544,7 @@ end LeanEval
 open LeanEval.RepresentationTheory
 open scoped TensorProduct
 
--- ANCHOR: g2_irrep_tensor_square_decomp
+-- ANCHOR: g2_irrep_tensor_square_decomp__g2_irrep_tensor_square_decomp
 theorem g2_irrep_tensor_square_decomp :
     ∃ (V : Type) (_ : AddCommGroup V) (_ : Module ℂ V)
       (_ : LieRingModule (LieAlgebra.g₂ ℂ) V) (_ : LieModule ℂ (LieAlgebra.g₂ ℂ) V),
@@ -553,7 +553,7 @@ theorem g2_irrep_tensor_square_decomp :
       (isotypicComponents (UniversalEnvelopingAlgebra ℂ (LieAlgebra.g₂ ℂ))
         (V ⊗[ℂ] V)).ncard = 14 := by
   sorry
--- ANCHOR_END: g2_irrep_tensor_square_decomp
+-- ANCHOR_END: g2_irrep_tensor_square_decomp__g2_irrep_tensor_square_decomp
 
 end ProblemG2IrrepTensorSquareDecomp
 
@@ -608,7 +608,7 @@ end LeanEval
 open LeanEval.RepresentationTheory
 open scoped TensorProduct
 
--- ANCHOR: e8_irrep_tensor_square_decomp
+-- ANCHOR: e8_irrep_tensor_square_decomp__e8_irrep_tensor_square_decomp
 theorem e8_irrep_tensor_square_decomp :
     ∃ (V : Type) (_ : AddCommGroup V) (_ : Module ℂ V)
       (_ : LieRingModule (LieAlgebra.e₈ ℂ) V) (_ : LieModule ℂ (LieAlgebra.e₈ ℂ) V),
@@ -617,7 +617,7 @@ theorem e8_irrep_tensor_square_decomp :
       (isotypicComponents (UniversalEnvelopingAlgebra ℂ (LieAlgebra.e₈ ℂ))
         (V ⊗[ℂ] V)).ncard = 40 := by
   sorry
--- ANCHOR_END: e8_irrep_tensor_square_decomp
+-- ANCHOR_END: e8_irrep_tensor_square_decomp__e8_irrep_tensor_square_decomp
 
 end ProblemE8IrrepTensorSquareDecomp
 
@@ -626,7 +626,7 @@ namespace ProblemCerfGammaFour
 open scoped Manifold ContDiff
 open Metric (sphere)
 
--- ANCHOR: cerf_gamma_four
+-- ANCHOR: cerf_gamma_four__cerf_gamma_four
 theorem cerf_gamma_four (f : sphere (0 : EuclideanSpace ℝ (Fin 4)) 1 ≃ₘ⟮𝓡 3, 𝓡 3⟯
          sphere (0 : EuclideanSpace ℝ (Fin 4)) 1) :
     ∃ (A : Matrix.orthogonalGroup (Fin 4) ℝ)
@@ -641,7 +641,7 @@ theorem cerf_gamma_four (f : sphere (0 : EuclideanSpace ℝ (Fin 4)) 1 ≃ₘ⟮
             Matrix.UnitaryGroup.toLinearEquiv A
               (p : EuclideanSpace ℝ (Fin 4))) := by
   sorry
--- ANCHOR_END: cerf_gamma_four
+-- ANCHOR_END: cerf_gamma_four__cerf_gamma_four
 
 end ProblemCerfGammaFour
 
@@ -650,7 +650,7 @@ namespace ProblemSmaleConjecture
 open scoped Manifold ContDiff
 open Metric (sphere)
 
--- ANCHOR: smale_conjecture
+-- ANCHOR: smale_conjecture__smale_conjecture
 theorem smale_conjecture {n : ℕ} [NeZero n]
     (X : Type) [TopologicalSpace X] [T2Space X] [SecondCountableTopology X]
     [ChartedSpace (EuclideanHalfSpace n) X] [IsManifold (𝓡∂ n) ∞ X]
@@ -687,7 +687,7 @@ theorem smale_conjecture {n : ℕ} [NeZero n]
          (p : sphere (0 : EuclideanSpace ℝ (Fin 4)) 1),
               H ((b : X), t, p) = F ((b : X), p)) := by
   sorry
--- ANCHOR_END: smale_conjecture
+-- ANCHOR_END: smale_conjecture__smale_conjecture
 
 end ProblemSmaleConjecture
 
@@ -695,7 +695,7 @@ namespace ProblemCyclotomicIntegerHouseLeTwo
 
 open NumberField
 
--- ANCHOR: cyclotomic_integer_house_le_two
+-- ANCHOR: cyclotomic_integer_house_le_two__cyclotomic_integer_house_le_two
 theorem cyclotomic_integer_house_le_two {K : Type*} [Field K] [NumberField K] [Algebra ℚ K]
     (n : ℕ) [NeZero n] [IsCyclotomicExtension {n} ℚ K] {β : K}
     (hβ_int : IsIntegral ℤ β)
@@ -703,7 +703,7 @@ theorem cyclotomic_integer_house_le_two {K : Type*} [Field K] [NumberField K] [A
     house β ≤ 2 →
       house β = 2 ∨ ∃ m : ℕ, 0 < m ∧ house β = 2 * Real.cos (Real.pi / m) := by
   sorry
--- ANCHOR_END: cyclotomic_integer_house_le_two
+-- ANCHOR_END: cyclotomic_integer_house_le_two__cyclotomic_integer_house_le_two
 
 end ProblemCyclotomicIntegerHouseLeTwo
 
@@ -711,7 +711,7 @@ namespace ProblemCyclotomicIntegerHouseBetweenTwoAnd7633
 
 open NumberField
 
--- ANCHOR: cyclotomic_integer_house_between_two_and_76_33
+-- ANCHOR: cyclotomic_integer_house_between_two_and_76_33__cyclotomic_integer_house_between_two_and_76_33
 theorem cyclotomic_integer_house_between_two_and_76_33 {K : Type*} [Field K] [NumberField K] [Algebra ℚ K]
     (n : ℕ) [NeZero n] [IsCyclotomicExtension {n} ℚ K] {β : K}
     (hβ_int : IsIntegral ℤ β)
@@ -723,7 +723,7 @@ theorem cyclotomic_integer_house_between_two_and_76_33 {K : Type*} [Field K] [Nu
       house β = (1 + Real.sqrt 5) / Real.sqrt 2 ∨
       house β = (1 + Real.sqrt 13) / 2 := by
   sorry
--- ANCHOR_END: cyclotomic_integer_house_between_two_and_76_33
+-- ANCHOR_END: cyclotomic_integer_house_between_two_and_76_33__cyclotomic_integer_house_between_two_and_76_33
 
 end ProblemCyclotomicIntegerHouseBetweenTwoAnd7633
 
@@ -783,7 +783,7 @@ end LeanEval
 
 open LeanEval.Analysis
 
--- ANCHOR: gleason_theorem_finite
+-- ANCHOR: gleason_theorem_finite__gleason_theorem_finite
 theorem gleason_theorem_finite {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
       [CompleteSpace H] [FiniteDimensional ℂ H]
     (hdim : 3 ≤ Module.finrank ℂ H)
@@ -793,7 +793,7 @@ theorem gleason_theorem_finite {H : Type*} [NormedAddCommGroup H] [InnerProductS
       reTr ρ = 1 ∧
       ∀ P : H →L[ℂ] H, LeanEval.Analysis.IsOrthProj P → f.μ P = reTr (ρ * P) := by
   sorry
--- ANCHOR_END: gleason_theorem_finite
+-- ANCHOR_END: gleason_theorem_finite__gleason_theorem_finite
 
 end ProblemGleasonTheoremFinite
 
@@ -845,7 +845,7 @@ end LeanEval
 
 open LeanEval.Analysis
 
--- ANCHOR: gleason_theorem_separable
+-- ANCHOR: gleason_theorem_separable__gleason_theorem_separable
 theorem gleason_theorem_separable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
       [CompleteSpace H] [TopologicalSpace.SeparableSpace H]
     (hdim : 3 ≤ Module.rank ℂ H)
@@ -855,6 +855,380 @@ theorem gleason_theorem_separable {H : Type*} [NormedAddCommGroup H] [InnerProdu
       ∀ x : Metric.sphere (0 : H) 1,
         f.f x = (inner ℂ (x : H) (ρ (x : H))).re := by
   sorry
--- ANCHOR_END: gleason_theorem_separable
+-- ANCHOR_END: gleason_theorem_separable__gleason_theorem_separable
 
 end ProblemGleasonTheoremSeparable
+
+namespace ProblemJacobianChallengeDiffgeo
+
+/-!
+# Jacobians of compact Riemann surfaces
+
+Kevin Buzzard's "Jacobian Challenge" v0.3, posted to leanprover Zulip
+(`#Autoformalization > Jacobian challenge`):
+<https://leanprover.zulipchat.com/#narrow/stream/583336-Autoformalization/topic/Jacobian%20challenge>.
+The original source uses anonymous instances; here every `instance` is
+named explicitly so the eval-problem pipeline can address it.
+
+## Main missing definitions
+
+* `genus` -- genus of a compact Riemann surface
+* `Jacobian` -- the Jacobian of a compact Riemann surface
+* `Jacobian.ofCurve` -- the Abel-Jacobi map from a compact Riemann surface to its Jacobian
+* `ContMDiff.degree` -- the degree of a holomorphic map between compact Riemann surfaces.
+    Equal to 0 if the map is constant, otherwise equal to the usual degree.
+* `Jacobian.pushforward` -- the pushforward map on Jacobians induced by a holomorphic map between
+  compact Riemann surfaces.
+* `Jacobian.pullback` -- the pullback map on Jacobians induced by a holomorphic map between
+  compact Riemann surfaces.
+
+## Main missing theorems
+
+* `genus_eq_zero_iff_homeo` -- a compact Riemann surface has genus 0 iff it is homeomorphic to the sphere
+* `ofCurve_inj` -- the Abel-Jacobi map is injective iff the genus is positive
+* `Jacobian.ofCurve_contMDiff` -- the Abel-Jacobi map is holomorphic
+* `Jacobian.pushforward_contMDiff` -- the pushforward map is holomorphic
+* `Jacobian.pullback_contMDiff` -- the pullback map is holomorphic
+* `pushforward_pullback` -- pullback then pushforward is multiplication by degree
+-/
+
+open scoped ContDiff -- for ω notation
+
+namespace JacobianChallenge
+
+universe u v w
+
+-- let X be a compact Riemann surface
+variable {X : Type u} [TopologicalSpace X] [T2Space X] [CompactSpace X] [ConnectedSpace X]
+  [ChartedSpace ℂ X] [IsManifold (modelWithCornersSelf ℂ ℂ) ω X]
+
+-- data
+-- ANCHOR: jacobian_challenge_diffgeo__genus
+def genus (X : Type u) [TopologicalSpace X] [T2Space X] [CompactSpace X] [ConnectedSpace X]
+    [Nonempty X] [ChartedSpace ℂ X] [IsManifold (modelWithCornersSelf ℂ ℂ) ω X] : ℕ := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__genus
+
+-- this proof avoids the hack answer `∀ X, genus X = 0`
+-- Prop
+-- ANCHOR: jacobian_challenge_diffgeo__genus_eq_zero_iff_homeo
+theorem genus_eq_zero_iff_homeo :
+    genus X = 0 ↔ Nonempty (X ≃ₜ (Metric.sphere (0 : EuclideanSpace ℝ (Fin 3)) 1)) :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__genus_eq_zero_iff_homeo
+
+-- data
+-- ANCHOR: jacobian_challenge_diffgeo__Jacobian
+def Jacobian (X : Type u) [TopologicalSpace X] [T2Space X] [CompactSpace X] [ConnectedSpace X]
+    [Nonempty X] [ChartedSpace ℂ X] [IsManifold (modelWithCornersSelf ℂ ℂ) ω X] : Type u := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__Jacobian
+
+namespace Jacobian
+
+-- data
+-- ANCHOR: jacobian_challenge_diffgeo__instAddCommGroup
+instance instAddCommGroup : AddCommGroup (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instAddCommGroup
+
+-- data
+-- ANCHOR: jacobian_challenge_diffgeo__instTopologicalSpace
+instance instTopologicalSpace : TopologicalSpace (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instTopologicalSpace
+
+-- Prop
+-- ANCHOR: jacobian_challenge_diffgeo__instT2Space
+instance instT2Space : T2Space (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instT2Space
+
+-- Prop
+-- ANCHOR: jacobian_challenge_diffgeo__instCompactSpace
+instance instCompactSpace : CompactSpace (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instCompactSpace
+-- ANCHOR: jacobian_challenge_diffgeo__instChartedSpace
+instance instChartedSpace : ChartedSpace (Fin (genus X) → ℂ) (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instChartedSpace
+
+-- Prop
+-- ANCHOR: jacobian_challenge_diffgeo__instIsManifold
+instance instIsManifold :
+    IsManifold (modelWithCornersSelf ℂ (Fin (genus X) → ℂ)) ω (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instIsManifold
+
+-- Prop
+-- ANCHOR: jacobian_challenge_diffgeo__instLieAddGroup
+instance instLieAddGroup :
+    LieAddGroup (modelWithCornersSelf ℂ (Fin (genus X) → ℂ)) ω (Jacobian X) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__instLieAddGroup
+-- ANCHOR: jacobian_challenge_diffgeo__ofCurve
+def ofCurve (P : X) : X → Jacobian X := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__ofCurve
+-- ANCHOR: jacobian_challenge_diffgeo__ofCurve_contMDiff
+theorem ofCurve_contMDiff (P : X) :
+    ContMDiff (modelWithCornersSelf ℂ ℂ)
+      (modelWithCornersSelf ℂ (Fin (genus X) → ℂ)) ω (ofCurve P) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__ofCurve_contMDiff
+-- ANCHOR: jacobian_challenge_diffgeo__ofCurve_self
+theorem ofCurve_self (P : X) : ofCurve P P = 0 := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__ofCurve_self
+
+-- this is the lemma which stops the hack answer "J(X)=0 for all X"
+-- ANCHOR: jacobian_challenge_diffgeo__ofCurve_inj
+theorem ofCurve_inj (P : X) (h : 0 < genus X) : Function.Injective (ofCurve P) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__ofCurve_inj
+
+variable {Y : Type v} [TopologicalSpace Y] [T2Space Y] [CompactSpace Y] [ConnectedSpace Y]
+  [Nonempty Y] [ChartedSpace ℂ Y] [IsManifold (modelWithCornersSelf ℂ ℂ) ω Y]
+
+variable (f : X → Y) (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f)
+-- ANCHOR: jacobian_challenge_diffgeo__pushforward
+def pushforward (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) :
+    Jacobian X →ₜ+ Jacobian Y := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pushforward
+-- ANCHOR: jacobian_challenge_diffgeo__pushforward_contMDiff
+theorem pushforward_contMDiff (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) :
+    ContMDiff (modelWithCornersSelf ℂ (Fin (genus X) → ℂ))
+      (modelWithCornersSelf ℂ (Fin (genus Y) → ℂ)) ω (pushforward f hf) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pushforward_contMDiff
+
+-- functoriality
+-- ANCHOR: jacobian_challenge_diffgeo__pushforward_id_apply
+theorem pushforward_id_apply (P : Jacobian X) :
+    pushforward id contMDiff_id P = P := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pushforward_id_apply
+
+variable {Z : Type w} [TopologicalSpace Z] [T2Space Z] [CompactSpace Z] [ConnectedSpace Z]
+  [Nonempty Z] [ChartedSpace ℂ Z] [IsManifold (modelWithCornersSelf ℂ ℂ) ω Z]
+
+variable (g : Y → Z) (hg : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω g)
+-- ANCHOR: jacobian_challenge_diffgeo__pushforward_comp_apply
+theorem pushforward_comp_apply (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f)
+    (g : Y → Z) (hg : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω g)
+    (P : Jacobian X) :
+    pushforward (g ∘ f) (hg.comp hf) P = pushforward g hg (pushforward f hf P) :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pushforward_comp_apply
+
+-- if f is constant then the pullback should be the zero map, otherwise it's
+-- the usual pullback
+-- ANCHOR: jacobian_challenge_diffgeo__pullback
+def pullback (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) :
+    Jacobian Y →ₜ+ Jacobian X := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pullback
+-- ANCHOR: jacobian_challenge_diffgeo__pullback_contMDiff
+theorem pullback_contMDiff (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) :
+    ContMDiff (modelWithCornersSelf ℂ (Fin (genus Y) → ℂ))
+      (modelWithCornersSelf ℂ (Fin (genus X) → ℂ)) ω (pullback f hf) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pullback_contMDiff
+-- ANCHOR: jacobian_challenge_diffgeo__pullback_id_apply
+theorem pullback_id_apply (P : Jacobian X) :
+    pullback id contMDiff_id P = P := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pullback_id_apply
+-- ANCHOR: jacobian_challenge_diffgeo__pullback_comp_apply
+theorem pullback_comp_apply (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f)
+    (g : Y → Z) (hg : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω g)
+    (P : Jacobian Z) :
+    pullback (g.comp f) (hg.comp hf) P = pullback f hf (pullback g hg P) := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pullback_comp_apply
+-- ANCHOR: jacobian_challenge_diffgeo__degree
+def degree (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f) : ℕ :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__degree -- 0 for constant case
+-- ANCHOR: jacobian_challenge_diffgeo__pushforward_pullback
+theorem pushforward_pullback (f : X → Y)
+    (hf : ContMDiff (modelWithCornersSelf ℂ ℂ) (modelWithCornersSelf ℂ ℂ) ω f)
+    (P : Jacobian Y) :
+    pushforward f hf (pullback f hf P) = (degree f hf) • P := sorry
+-- ANCHOR_END: jacobian_challenge_diffgeo__pushforward_pullback
+
+end Jacobian
+
+end JacobianChallenge
+
+end ProblemJacobianChallengeDiffgeo
+
+namespace ProblemJacobianChallengeAlggeo
+
+/-
+Copyright (c) 2026 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+-/
+/-!
+# Jacobians in algebraic geometry
+
+Christian Merten's algebraic-geometry analogue of Kevin Buzzard's Jacobian
+challenge, posted to leanprover Zulip:
+<https://leanprover.zulipchat.com/#narrow/stream/583336-Autoformalization/topic/Jacobian%20challenge/near/587802685>.
+
+In the following, by a smooth curve we mean a geometrically irreducible, smooth scheme of relative
+dimension one over a field.
+
+## Main missing definitions
+
+* `AlgebraicGeometry.JacobianChallenge.genus` -- genus of a proper, smooth curve
+* `AlgebraicGeometry.JacobianChallenge.Jacobian` -- the Jacobian of a proper, smooth curve
+* `AlgebraicGeometry.JacobianChallenge.Jacobian.ofCurve` -- the Abel-Jacobi map from a proper smooth
+  curve to its Jacobian
+
+## Main missing theorems
+
+* `Jacobian.smoothOfRelativeDimension_genus` -- The Jacobian of a proper, smooth curve `C` is smooth
+  of relative dimension `g`, where `g` is the genus of `C`.
+* `Jacobian.exists_unique_ofCurve_comp` -- the universal property of the Jacobian of a proper,
+  smooth curve.
+-/
+
+set_option autoImplicit false
+
+universe u
+
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+namespace AlgebraicGeometry
+
+namespace JacobianChallenge
+
+-- We make `C` implicit at the variable level so that instance and `def` holes
+-- whose statement references the outer `C` (e.g. `instance instGrpObj :
+-- GrpObj (Jacobian C) := sorry`) elaborate to a Π-type with `{C}` implicit;
+-- otherwise the eval-pipeline's `Solution.lean` would have to thread a `C`
+-- argument through every delegation. Decls that genuinely need `C` explicit
+-- (e.g. `genus`, `Jacobian`, `comp_ofCurve`) supply their own `(C : ...)`
+-- binder.
+variable {k : Type u} [Field k] {C : Over (Spec (.of k))}
+  -- smooth curve
+  [SmoothOfRelativeDimension 1 C.hom]
+  -- proper
+  [IsProper C.hom]
+  -- geometrically irreducible
+  [GeometricallyIrreducible C.hom]
+
+-- data
+-- ANCHOR: jacobian_challenge_alggeo__genus
+/-- The genus of a smooth proper curve. -/
+def genus (C : Over (Spec (.of k))) [IsProper C.hom] [SmoothOfRelativeDimension 1 C.hom]
+    [GeometricallyIrreducible C.hom] : ℕ :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__genus
+
+-- data
+-- ANCHOR: jacobian_challenge_alggeo__Jacobian
+/-- The Jacobian of a smooth, proper curve over a field `k`. -/
+def Jacobian (C : Over (Spec (.of k))) [IsProper C.hom] [SmoothOfRelativeDimension 1 C.hom]
+    [GeometricallyIrreducible C.hom] : Over (Spec (.of k)) :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__Jacobian
+
+namespace Jacobian
+
+/-! ## The Jacobian of `C` is an abelian variety. -/
+
+-- data
+-- ANCHOR: jacobian_challenge_alggeo__instGrpObj
+/-- The group scheme structure on the Jacobian of the curve `C`. -/
+instance instGrpObj : GrpObj (Jacobian C) :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__instGrpObj
+
+-- ANCHOR: jacobian_challenge_alggeo__smoothOfRelativeDimension_genus
+/-- The Jacobian of `C` is smooth of relative dimension `g` over `k`, where `g` is the
+genus of `C`. -/
+instance smoothOfRelativeDimension_genus :
+    SmoothOfRelativeDimension (genus C) (Jacobian C).hom :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__smoothOfRelativeDimension_genus
+
+-- ANCHOR: jacobian_challenge_alggeo__instIsProper
+/-- The Jacobian of `C` is proper over `k`. -/
+instance instIsProper : IsProper (Jacobian C).hom :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__instIsProper
+
+-- ANCHOR: jacobian_challenge_alggeo__instGeometricallyIrreducible
+/-- The Jacobian of `C` is geometrically irreducible over `k`. -/
+instance instGeometricallyIrreducible : GeometricallyIrreducible (Jacobian C).hom :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__instGeometricallyIrreducible
+
+-- data
+-- ANCHOR: jacobian_challenge_alggeo__ofCurve
+/-- The Abel-Jacobi map from a smooth, proper curve to its Jacobian associated
+to a `k`-rational point of `C`. -/
+def ofCurve (P : 𝟙_ (Over (Spec (.of k))) ⟶ C) : C ⟶ Jacobian C :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__ofCurve
+
+-- ANCHOR: jacobian_challenge_alggeo__comp_ofCurve
+/-- The Abel-Jacobi map sends the `k`-rational point `P` to `0`, where `0` (denoted by `η` below) is
+the neutral element of the group scheme `Jacobian C`. -/
+theorem comp_ofCurve (C : Over (Spec (.of k))) [IsProper C.hom]
+    [SmoothOfRelativeDimension 1 C.hom] [GeometricallyIrreducible C.hom]
+    (P : 𝟙_ (Over (Spec (.of k))) ⟶ C) :
+    P ≫ ofCurve P = η[Jacobian C] :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__comp_ofCurve
+
+-- ANCHOR: jacobian_challenge_alggeo__exists_unique_ofCurve_comp
+/--
+The universal property of the Jacobian variety: For any abelian variety `A`,
+any morphism `f : C ⟶ A` such that `f(P) = 0` factors uniquely through the
+Jacobian of `C`.
+In other words, `Jacobian C` is the Albanese variety of `C`.
+-/
+theorem exists_unique_ofCurve_comp (C : Over (Spec (.of k))) [IsProper C.hom]
+    [SmoothOfRelativeDimension 1 C.hom] [GeometricallyIrreducible C.hom]
+    (P : 𝟙_ (Over (Spec (.of k))) ⟶ C)
+    {A : Over (Spec (.of k))} [Smooth A.hom] [IsProper A.hom] [GrpObj A]
+    [GeometricallyIrreducible A.hom] (f : C ⟶ A) (hf : P ≫ f = η[A]) :
+    ∃! (g : Jacobian C ⟶ A), f = ofCurve P ≫ g :=
+  sorry
+-- ANCHOR_END: jacobian_challenge_alggeo__exists_unique_ofCurve_comp
+
+end Jacobian
+
+end JacobianChallenge
+
+end AlgebraicGeometry
+
+end ProblemJacobianChallengeAlggeo
+
+namespace ProblemDefHoleExample
+
+/-!
+Minimal example exercising the def-hole / multi-hole eval-problem pipeline.
+
+A `def` and a `theorem` referring to it, both `sorry`. A submission
+defines `Submission.foo := 37` and proves `Submission.foo_def`; comparator
+should accept it.
+-/
+-- ANCHOR: def_hole_example__foo
+def foo : Nat := sorry
+-- ANCHOR_END: def_hole_example__foo
+-- ANCHOR: def_hole_example__foo_def
+theorem foo_def : foo = 37 := sorry
+-- ANCHOR_END: def_hole_example__foo_def
+
+end ProblemDefHoleExample
+
+namespace ProblemInstanceHoleExample
+
+/-!
+Minimal example exercising `instance` holes in the multi-hole
+eval-problem pipeline. The carrier type is itself a hole so the source
+has no non-hole declarations and the generator does not need a
+`ChallengeDeps` split.
+-/
+-- ANCHOR: instance_hole_example__WidgetCarrier
+def WidgetCarrier : Type := sorry
+-- ANCHOR_END: instance_hole_example__WidgetCarrier
+-- ANCHOR: instance_hole_example__instInhabitedWidget
+instance instInhabitedWidget : Inhabited WidgetCarrier := sorry
+-- ANCHOR_END: instance_hole_example__instInhabitedWidget
+
+end ProblemInstanceHoleExample

@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T12:24:28Z",
+  "generated_at": "2026-04-30T13:12:58Z",
   "results_repo": {
     "repo": "leanprover/lean-eval-leaderboard",
-    "commit": "176e9443e6c6622c67513861362e6fa77efffa57"
+    "commit": "1a3d7c28b925503e9da35e9cd8480baac2095d60"
   },
   "benchmark": {
     "repo": "leanprover/lean-eval",
-    "commit": "01f98c0d77b70f0750499b9ec96bf8bd353972d1"
+    "commit": "a6091941f833b240fdfa4a37855fe2da0fca1dbd"
   },
   "summary": {
     "models": 2,
     "submitters": 2,
-    "problems": 32,
-    "main_problems": 29,
-    "test_problems": 3
+    "problems": 36,
+    "main_problems": 31,
+    "test_problems": 5
   },
   "entries": [
     {

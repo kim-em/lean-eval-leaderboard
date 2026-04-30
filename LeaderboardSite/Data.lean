@@ -14,14 +14,38 @@ structure BenchmarkInfo where
   commit : String
 deriving FromJson
 
+/-- One `@[eval_problem]`-annotated declaration. Multiple holes may belong
+to the same `manifests/problems.toml` entry; they are rendered together as
+a stack on the problems page and in home-page popovers. -/
+structure Hole where
+  /-- Fully-qualified declaration name (e.g. `LeanEval.Foo.bar`). -/
+  name : String
+  /-- Short basename (e.g. `bar`); unique within one problem. -/
+  basename : String
+  /-- Kernel-level kind: `theorem` / `def` / `instance` / `opaque`. The
+  `body` text below already starts with the right Lean keyword, so the
+  renderer keys off the body's leading token rather than this field. -/
+  kind : String
+  /-- Trimmed source body, with `@[eval_problem]` already stripped. -/
+  body : String
+deriving Inhabited, Quote, Repr
+
+instance : FromJson Hole where
+  fromJson? json := do
+    return {
+      name := ← json.getObjValAs? String "name"
+      basename := ← json.getObjValAs? String "basename"
+      kind := ← json.getObjValAs? String "kind"
+      body := ← json.getObjValAs? String "body"
+    }
+
 structure ProblemEntry where
   id : String
   title : String
   test : Bool
   submitter : String
   moduleName : String
-  theoremName : String
-  statementText : String
+  holes : Array Hole
   notesText : Option String
   sourceText : Option String
   informalSolution : Option String
@@ -36,8 +60,7 @@ instance : FromJson ProblemEntry where
       test := ← json.getObjValAs? Bool "test"
       submitter := ← json.getObjValAs? String "submitter"
       moduleName := ← json.getObjValAs? String "module"
-      theoremName := ← json.getObjValAs? String "theorem"
-      statementText := ← json.getObjValAs? String "statement"
+      holes := ← json.getObjValAs? (Array Hole) "holes"
       notesText := (json.getObjValAs? String "notes").toOption
       sourceText := (json.getObjValAs? String "source").toOption
       informalSolution := (json.getObjValAs? String "informal_solution").toOption
@@ -213,44 +236,43 @@ def loadSnapshotCatalog : TermElabM String :=
   IO.FS.readFile snapshotCatalogPath
 
 def validateProblems (payload : ProblemsPayload) : TermElabM (Array ProblemEntry) := do
-  if payload.schemaVersion != 2 then
-    throwError "Unsupported problems schema version {payload.schemaVersion}; expected 2"
+  if payload.schemaVersion != 3 then
+    throwError "Unsupported problems schema version {payload.schemaVersion}; expected 3"
   let mut seen : Std.HashSet String := {}
   for problem in payload.problems do
     if problem.id.trimAscii.isEmpty then
       throwError "Encountered a problem with an empty id"
     if problem.title.trimAscii.isEmpty then
       throwError "Problem '{problem.id}' is missing a title"
-    if problem.statementText.trimAscii.isEmpty then
-      throwError "Problem '{problem.id}' is missing a statement"
+    if problem.holes.isEmpty then
+      throwError "Problem '{problem.id}' has no holes"
     if seen.contains problem.id then
       throwError "Duplicate problem id '{problem.id}' in {problemsJsonPath}"
     seen := seen.insert problem.id
   pure <| payload.problems.qsort (fun a b => a.sortIndex < b.sortIndex)
 
-private def shortTheoremName (problem : ProblemEntry) : String :=
-  match problem.theoremName.splitOn "." |>.reverse with
-  | name :: _ => name
-  | [] => problem.theoremName
+def holeAnchorId (problemId : String) (hole : Hole) : String :=
+  s!"{problemId}__{hole.basename}"
 
-def anchorSourceText (catalog : String) (problem : ProblemEntry) : TermElabM String := do
-  let startMarker := s!"-- ANCHOR: {problem.id}"
-  let endMarker := s!"-- ANCHOR_END: {problem.id}"
+/-- Look up one hole's anchor body in the snapshot catalog. The anchor name
+is `<problem-id>__<basename>`. Returns the trimmed body so callers can use
+it for plain-text fallbacks. -/
+def anchorSourceText (catalog : String) (problemId : String) (hole : Hole) : TermElabM String := do
+  let anchorId := holeAnchorId problemId hole
+  let startMarker := s!"-- ANCHOR: {anchorId}"
+  let endMarker := s!"-- ANCHOR_END: {anchorId}"
   let parts := catalog.splitOn startMarker
   let some rest := parts[1]?
-    | throwError "Anchor '{problem.id}' not found in {snapshotCatalogPath}"
+    | throwError "Anchor '{anchorId}' not found in {snapshotCatalogPath}"
   if parts.length != 2 then
-    throwError "Anchor '{problem.id}' appears multiple times in {snapshotCatalogPath}"
+    throwError "Anchor '{anchorId}' appears multiple times in {snapshotCatalogPath}"
   let rest := rest.dropWhile (· == '\n') |>.toString
   let bodyParts := rest.splitOn endMarker
   let some body := bodyParts[0]?
-    | throwError "Anchor '{problem.id}' is missing its body in {snapshotCatalogPath}"
+    | throwError "Anchor '{anchorId}' is missing its body in {snapshotCatalogPath}"
   if bodyParts.length < 2 then
-    throwError "Anchor '{problem.id}' is missing its closing marker in {snapshotCatalogPath}"
-  let body := body.trimAscii.toString
-  if !body.contains s!"theorem {shortTheoremName problem}" then
-    throwError "Anchor '{problem.id}' does not contain theorem {shortTheoremName problem}"
-  pure body
+    throwError "Anchor '{anchorId}' is missing its closing marker in {snapshotCatalogPath}"
+  pure body.trimAscii.toString
 
 def runPageDocElab (act : DocElabM α) : TermElabM α := do
   let ctx ← DocElabContext.fromGenreTerm (← `(Page))
@@ -259,17 +281,23 @@ def runPageDocElab (act : DocElabM α) : TermElabM α := do
   let (result, _) ← DocElabM.run ctx initDocState initPartState act
   pure result
 
-def anchorBlockTerm (catalog : String) (problem : ProblemEntry) : TermElabM (TSyntax `term) := do
-  let anchorName := Lean.mkIdent <| Lean.Name.mkSimple problem.id
+/-- One Verso anchor block per hole, in source order. Each anchor is
+spliced from `BenchmarkProblems.Catalog` and includes full syntax
+highlighting via Verso's `Code.External.anchor` machinery. -/
+def anchorBlockTerms (catalog : String) (problem : ProblemEntry) :
+    TermElabM (Array (TSyntax `term)) := do
   let moduleName := Lean.mkIdent `BenchmarkProblems.Catalog
-  let args : Array Verso.Doc.Arg := #[
-    .anon (.name anchorName),
-    .named .missing (Lean.mkIdent `module) (.name moduleName)
-  ]
-  let expected := Syntax.mkStrLit (← anchorSourceText catalog problem)
-  let terms ← runPageDocElab <| Verso.Code.External.anchor args expected
-  match terms[0]? with
-  | some term => pure term
-  | none => throwError "Anchor expander for '{problem.id}' returned no block"
+  problem.holes.mapM fun hole => do
+    let anchorId := holeAnchorId problem.id hole
+    let anchorName := Lean.mkIdent <| Lean.Name.mkSimple anchorId
+    let args : Array Verso.Doc.Arg := #[
+      .anon (.name anchorName),
+      .named .missing (Lean.mkIdent `module) (.name moduleName)
+    ]
+    let expected := Syntax.mkStrLit (← anchorSourceText catalog problem.id hole)
+    let terms ← runPageDocElab <| Verso.Code.External.anchor args expected
+    match terms[0]? with
+    | some term => pure term
+    | none => throwError "Anchor expander for '{anchorId}' returned no block"
 
 end LeaderboardSite.Data

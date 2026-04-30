@@ -151,19 +151,21 @@ private def heroBlock (summary : LeaderboardSummary) : Block Page :=
 
 /-! ## Problem rows inside an entry -/
 
-/-- Theorem-statement card shown as a CSS hover/focus popover. When an
-anchor-rendered Verso block is available for the given problem id we use
-it (with full syntax highlighting); otherwise we fall back to a plain
-`<pre>` static card. -/
+/-- Hover/focus popover showing every `@[eval_problem]` declaration tied
+to a problem id. When anchor-rendered Verso blocks are available for the
+given problem id we use them (with full syntax highlighting), one per
+hole, stacked; otherwise we fall back to a plain `<pre>` of the joined
+hole sources. -/
 private def theoremCard
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (problemId statement : String) : Block Page :=
   match anchorMap[problemId]? with
   | some rendered =>
-    divBlock "theorem-card theorem-card-rendered" #[
-      divBlock "theorem-card-label" #[paragraph #[textInline "Verso theorem preview"]],
-      rendered
-    ]
+    let holeBlocks : Array (Block Page) :=
+      rendered.map fun blk => divBlock "hole" #[blk]
+    divBlock "theorem-card theorem-card-rendered" <|
+      #[divBlock "theorem-card-label" #[paragraph #[textInline "Verso theorem preview"]]]
+      ++ holeBlocks
   | none =>
     divBlock "theorem-card theorem-card-static" #[
       divBlock "theorem-card-label" #[paragraph #[textInline "Lean theorem statement"]],
@@ -176,7 +178,7 @@ theorem text shown in the static-fallback popover. `proofUrl?`, when
 set, adds a public proof link next to the chip. The `anchorMap` carries
 pre-rendered Verso theorem blocks keyed by problem id. -/
 private def problemItem
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (problemId : String) (title : String) (statement : String)
     (proofUrl? : Option String)
     (rarityRank? : Option Nat)
@@ -249,7 +251,7 @@ private def entrySummary (entry : LeaderboardEntry) : Html :=
 /-- Render the body of a `<details>` row: notable problems + provenance. -/
 private def entryBody
     (problems : Std.HashMap String (String × String))
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (entry : LeaderboardEntry) : Array (Block Page) :=
   let notable := entry.notableProblemIds.filterMap fun pid =>
     entry.solvedProblems.find? (·.problemId == pid)
@@ -294,7 +296,7 @@ private def entryBody
 
 private def entryBlock
     (problems : Std.HashMap String (String × String))
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (entry : LeaderboardEntry) : Block Page :=
   detailsBlock "entry" (entrySummary entry) (entryBody problems anchorMap entry)
 
@@ -317,7 +319,7 @@ through Verso while the data-rich path is being built out. -/
 /-- Empty-state showcase: friendly message + a preview of the first
 four main benchmark problems with hover-popover theorem cards. -/
 private def emptyShowcase
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (preview : Array (String × String × String)) : Block Page :=
   let previewItems : Array (Block Page) := preview.map fun (id, title, statement) =>
     problemItem anchorMap id title statement none none none
@@ -337,7 +339,7 @@ private def emptyShowcase
 empty showcase with a 4-problem catalog preview. -/
 private def leaderboardPanel
     (problems : Std.HashMap String (String × String))
-    (anchorMap : Std.HashMap String (Block Page))
+    (anchorMap : Std.HashMap String (Array (Block Page)))
     (preview : Array (String × String × String))
     (entries : Array LeaderboardEntry) : Block Page :=
   let body : Array (Block Page) :=
@@ -369,7 +371,7 @@ def leaderboardBlocks
     (problemEntries : Array (String × String × String))
     (entries : Array LeaderboardEntry)
     (previewIds : Array String)
-    (anchorMap : Std.HashMap String (Block Page)) : Array (Block Page) :=
+    (anchorMap : Std.HashMap String (Array (Block Page))) : Array (Block Page) :=
   let problemMap : Std.HashMap String (String × String) :=
     problemEntries.foldl
       (fun m (id, title, statement) => m.insert id (title, statement))
@@ -390,15 +392,17 @@ sections. Used from `Front.lean` via the `leaderboard%` syntax. -/
 
 scoped syntax "leaderboard%" : term
 
-/-- Build a syntax tree for an `Std.HashMap String (Block Page)` whose
-keys are problem ids and whose values are the spliced anchor terms. -/
+/-- Build a syntax tree for an `Std.HashMap String (Array (Block Page))`
+whose keys are problem ids and whose values are the spliced per-hole
+anchor terms. -/
 private def anchorMapTerm
     (catalog : String) (problems : Array ProblemEntry)
     (neededIds : Array String) : TermElabM (TSyntax `term) := do
   let needed := problems.filter fun p => neededIds.contains p.id
-  needed.foldlM (init := ← `((∅ : Std.HashMap String (Block Page)))) fun acc p => do
-    let anchor ← anchorBlockTerm catalog p
-    `(($acc).insert $(quote p.id) $anchor)
+  needed.foldlM (init := ← `((∅ : Std.HashMap String (Array (Block Page))))) fun acc p => do
+    let anchors ← anchorBlockTerms catalog p
+    let anchorsArr : TSyntaxArray `term := anchors
+    `(($acc).insert $(quote p.id) #[$anchorsArr,*])
 
 elab_rules : term
   | `(leaderboard%) => do
@@ -408,8 +412,12 @@ elab_rules : term
       let problems ← validateProblems problemsPayload
       let summary := payload.summary
       let entries := payload.entries
+      -- Plain-text fallback for the popover when no rendered anchor is
+      -- available: concatenate every hole's body in source order.
       let problemTriples : Array (String × String × String) :=
-        problems.map fun p => (p.id, p.title, p.statementText)
+        problems.map fun p =>
+          let joined := String.intercalate "\n\n" (p.holes.map (·.body)).toList
+          (p.id, p.title, joined)
       -- The empty-state preview shows the first four main (non-test)
       -- problems, mirroring what the JS rendering used to emit.
       let mainProblems := problems.filter (!·.test)
