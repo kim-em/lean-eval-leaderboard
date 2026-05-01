@@ -32,8 +32,12 @@ def theme (name : String) (siteName : String) : Theme := {
           <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <title>{{ title }} s!" | {siteName}"</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Oranienbaum&family=Fira+Code:wght@400;500&display=swap"/>
           {{← builtinHeader }}
           <link rel="stylesheet" href="static/style.css"/>
+          <script src="static/theme-toggle.js"></script>
           <script defer="true" src="static/background.js"></script>
         </head>
         <body class={{pageClass}}>
@@ -44,7 +48,13 @@ def theme (name : String) (siteName : String) : Theme := {
                   <span class="wordmark-mark">"⊢"</span>
                   <span class="wordmark-text">"Lean AI formalization leaderboard"</span>
                 </a>
-                {{ ← topNav (homeLink := name) }}
+                <div class="topbar-actions">
+                  {{ ← topNav (homeLink := name) }}
+                  <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+                    <span class="icon-sun" aria-hidden="true">"☀"</span>
+                    <span class="icon-moon" aria-hidden="true">"☾"</span>
+                  </button>
+                </div>
               </div>
             </header>
             <main class="page" role="main">
