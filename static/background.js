@@ -6,8 +6,19 @@
   const THRESHOLD_AMP = 0.5;
   const FADE_HALF_WIDTH = 0.08;
   const BOLD_LEVELS = 12;
-  const THIN_STROKE = "rgba(43, 183, 168, 0.04375)";
-  const BOLD_STROKE = "rgba(127, 227, 217, 0.06875)";
+
+  // Stroke colors are read from CSS custom properties (`--lattice-thin`,
+  // `--lattice-bold`) so the lattice retints in sync with the theme.
+  let thinStroke = "rgba(56, 110, 224, 0.06)";
+  let boldStroke = "rgba(56, 110, 224, 0.10)";
+
+  function readStrokes() {
+    const styles = getComputedStyle(document.documentElement);
+    const thin = styles.getPropertyValue("--lattice-thin").trim();
+    const bold = styles.getPropertyValue("--lattice-bold").trim();
+    if (thin) thinStroke = thin;
+    if (bold) boldStroke = bold;
+  }
 
   let canvas;
   let ctx;
@@ -93,7 +104,7 @@
       ctx.moveTo(e.x1, e.y1);
       ctx.lineTo(e.x2, e.y2);
     }
-    ctx.strokeStyle = THIN_STROKE;
+    ctx.strokeStyle = thinStroke;
     ctx.lineWidth = 1;
     ctx.stroke();
 
@@ -106,7 +117,7 @@
         buckets[idx].push(e);
       }
     }
-    ctx.strokeStyle = BOLD_STROKE;
+    ctx.strokeStyle = boldStroke;
     ctx.lineWidth = 2;
     for (let i = 0; i < BOLD_LEVELS; i++) {
       const bucket = buckets[i];
@@ -145,13 +156,20 @@
     if (!document.hidden) schedule();
   }
 
+  function onThemeChange() {
+    readStrokes();
+    schedule();
+  }
+
   function init() {
     createCanvas();
     sizeCanvas();
+    readStrokes();
     buildLattice();
     schedule();
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener("themechange", onThemeChange);
   }
 
   if (document.readyState === "loading") {
