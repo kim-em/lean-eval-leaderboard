@@ -23,6 +23,17 @@
         "submission_repo": "kim-em/22bad2dccd67bcca0df87c01d072ef39"
       }
     },
+    "GLM 4.7": {
+      "two_plus_two": {
+        "benchmark_commit": "c9c95847698c275591233dd487ac44e199f7b248",
+        "issue_number": 52,
+        "production_description": "Seed submission to populate the leaderboard. Solved by GLM 4.7 via the Pi coding agent (badlogic/pi-mono) on OpenRouter, driven by Kim Morrison. Test submission, not affiliated with the model creators.",
+        "solved_at": "2026-05-01T03:44:08Z",
+        "submission_public": true,
+        "submission_ref": "8261528dc77c42c1b3ae45d4c8d547cba8009094",
+        "submission_repo": "kim-em/b2c755a319828eb2774822c72529af7c"
+      }
+    },
     "GPT-5.5": {
       "two_plus_two": {
         "benchmark_commit": "953d54a7af5038566775507761e48e365e7feb3b",
