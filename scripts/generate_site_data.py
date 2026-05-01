@@ -461,44 +461,52 @@ def build_leaderboard_payload(
 
     for user_record in raw_results:
         user = str(user_record["user"])
-        solved = user_record.get("solved", {})
-        for problem_id, record in solved.items():
-            model_name = normalize_model_name(str(record.get("model", "Unknown model")))
+        schema_version = user_record.get("schema_version")
+        if schema_version != 2:
+            raise SystemExit(
+                f"results file for user {user!r} has schema_version "
+                f"{schema_version!r}; this generator only knows version 2. "
+                "Run scripts/migrate_v1_to_v2.py if it is still v1."
+            )
+        solved_per_model = user_record.get("solved", {})
+        for raw_model_name, problems_for_model in solved_per_model.items():
+            model_name = normalize_model_name(str(raw_model_name))
             model_id = slugify(model_name)
             model_display.setdefault(model_id, model_name)
-            per_model_submitters[model_id][user] += 1
-            current = per_model_problem[model_id].get(problem_id)
-            production_description_raw = record.get("production_description")
-            production_description = (
-                str(production_description_raw).strip()
-                if isinstance(production_description_raw, str) and str(production_description_raw).strip()
-                else None
-            )
-            candidate = {
-                "problem_id": problem_id,
-                "solved_at": str(record["solved_at"]),
-                "provenance": {
-                    "user": user,
-                    "issue_number": int(record["issue_number"]),
-                    "benchmark_commit": str(record["benchmark_commit"]),
-                    "submission_repo": str(record["submission_repo"]),
-                    "submission_ref": str(record["submission_ref"]),
-                },
-                "public_solution": {
-                    "available": bool(record["submission_public"]),
-                    "repo": str(record["submission_repo"]) if record["submission_public"] else None,
-                    "ref": str(record["submission_ref"]) if record["submission_public"] else None,
-                    "url": public_solution_url(
-                        str(record["submission_repo"]),
-                        str(record["submission_ref"]),
-                        problem_id,
-                        bool(record["submission_public"]),
-                    ),
-                },
-                "production_description": production_description,
-            }
-            if current is None or timestamp_key(candidate["solved_at"]) < timestamp_key(current["solved_at"]):
-                per_model_problem[model_id][problem_id] = candidate
+            for problem_id, record in problems_for_model.items():
+                per_model_submitters[model_id][user] += 1
+                current = per_model_problem[model_id].get(problem_id)
+                production_description_raw = record.get("production_description")
+                production_description = (
+                    str(production_description_raw).strip()
+                    if isinstance(production_description_raw, str) and str(production_description_raw).strip()
+                    else None
+                )
+                candidate = {
+                    "problem_id": problem_id,
+                    "solved_at": str(record["solved_at"]),
+                    "provenance": {
+                        "user": user,
+                        "issue_number": int(record["issue_number"]),
+                        "benchmark_commit": str(record["benchmark_commit"]),
+                        "submission_repo": str(record["submission_repo"]),
+                        "submission_ref": str(record["submission_ref"]),
+                    },
+                    "public_solution": {
+                        "available": bool(record["submission_public"]),
+                        "repo": str(record["submission_repo"]) if record["submission_public"] else None,
+                        "ref": str(record["submission_ref"]) if record["submission_public"] else None,
+                        "url": public_solution_url(
+                            str(record["submission_repo"]),
+                            str(record["submission_ref"]),
+                            problem_id,
+                            bool(record["submission_public"]),
+                        ),
+                    },
+                    "production_description": production_description,
+                }
+                if current is None or timestamp_key(candidate["solved_at"]) < timestamp_key(current["solved_at"]):
+                    per_model_problem[model_id][problem_id] = candidate
 
     solving_model_counts: dict[str, int] = defaultdict(int)
     for problems_for_model in per_model_problem.values():
