@@ -24,6 +24,9 @@ private def codeInline (text : String) : Inline Page :=
 private def linkInline (label url : String) : Inline Page :=
   .link #[textInline label] url
 
+private def codeLinkInline (id url : String) : Inline Page :=
+  .link #[codeInline id] url
+
 private def paragraph (contents : Array (Inline Page)) : Block Page :=
   .para contents
 
@@ -72,6 +75,26 @@ private def holeWrap (child : Block Page) : Block Page :=
   .other (BlockExt.htmlDiv "hole") #[child]
 
 open Verso.Output Html in
+/-- Render the live filter box at the top of the Problems page.
+The matching is implemented in `static/site.js`: it walks every
+`section[id]` under `main` and hides the ones whose text content
+doesn't include the query (case-insensitive). -/
+private def filterBlock : Block Page :=
+  let html : Verso.Output.Html := {{
+    <div class="problems-filter" data-problems-filter="true">
+      <label class="problems-filter-label">
+        <span class="problems-filter-icon" aria-hidden="true">"⌕"</span>
+        <input type="search" class="problems-filter-input"
+               placeholder="Filter problems by title, id, notes, source, or Lean source"
+               aria-label="Filter problems"
+               autocomplete="off" spellcheck="false"/>
+      </label>
+      <span class="problems-filter-count" aria-live="polite"></span>
+    </div>
+  }}
+  Verso.Doc.Block.other (BlockExt.blob html) #[]
+
+open Verso.Output Html in
 /-- Render an in-page table of contents as a collapsible `<details>` block.
 Each item links to the per-problem detail page. -/
 private def tocBlock (items : Array (String × String)) : Block Page :=
@@ -101,7 +124,12 @@ private def assembleProblemPart
     (notes source solution : Block Page)
     (anchors : Array (Block Page)) : Part Page :=
   let prelude : Array (Block Page) := #[
-    paragraph #[codeInline id],
+    -- The id chip doubles as a link to the per-problem detail page.
+    paragraph #[
+      codeLinkInline id s!"problems/{id}/",
+      textInline " ",
+      linkInline "(detail page)" s!"problems/{id}/"
+    ],
     paragraph #[textInline submitterText],
     notes,
     source,
@@ -160,7 +188,9 @@ elab_rules : term
       let tocItems : Array (String × String) :=
         (mainProblems ++ starterProblems).map fun p => (p.id, p.title)
       let tocTerm ← `(tocBlock $(quote tocItems))
-      let introBlocks' : TSyntaxArray `term := introBlocks.push tocTerm
+      let filterTerm ← `(filterBlock)
+      let introBlocks' : TSyntaxArray `term :=
+        (introBlocks.push filterTerm).push tocTerm
       let subParts' : TSyntaxArray `term := subParts
       let pageTerm ← `(pagePart "Problems" #[$introBlocks',*] #[$subParts',*])
       let expectedType ← Lean.Elab.Term.elabTerm (← `(Part Page)) none
