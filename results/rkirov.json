@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "solved": {
-    "Claude Opus 4.7 with 1M context": {
+    "Claude Opus 4.7": {
       "finite_graph_ramsey_theorem": {
         "benchmark_commit": "48b8530beb9ff567d8932326aaec1e1acb67b749",
         "issue_number": 21,
