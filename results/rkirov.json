@@ -31,6 +31,15 @@
       }
     },
     "Claude Opus 4.7 (1M context)": {
+      "bvp_comparison": {
+        "benchmark_commit": "ce95f00abb6d84e2ca465e6ec7bb5e12f82cd427",
+        "issue_number": 81,
+        "solved_at": "2026-05-02T03:42:53Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "f1cccf7cda6aec137608be10e68c5545eef7ba63",
+        "submission_repo": "rkirov/lean-eval"
+      },
       "ci_regenerate_main_check": {
         "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
         "issue_number": 78,
