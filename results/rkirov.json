@@ -29,6 +29,88 @@
         "submission_ref": "212bebf172ea4a345071d0b3fc40a978515d09c6",
         "submission_repo": "rkirov/lean-eval"
       }
+    },
+    "Claude Opus 4.7 (1M context)": {
+      "ci_regenerate_main_check": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "def_hole_example": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "finite_graph_ramsey_theorem": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "instance_hole_example": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "list_append_singleton_length": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "mulCayley_connected_iff_closure_eq_top": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "substInv_X_sub_X_sq_eq_catalan": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      },
+      "two_plus_two": {
+        "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
+        "issue_number": 78,
+        "production_description": "Just asking to solve the problems in Claude Code.",
+        "solved_at": "2026-05-02T03:11:14Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
+        "submission_repo": "rkirov/lean-eval"
+      }
     }
   },
   "user": "rkirov"
