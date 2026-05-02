@@ -100,6 +100,15 @@
         "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
         "submission_repo": "rkirov/lean-eval"
       },
+      "oppenheim_inequality": {
+        "benchmark_commit": "276a580e44cad4d6a1be2cb90f0874d73457296f",
+        "issue_number": 106,
+        "solved_at": "2026-05-02T14:19:27Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "469356690df9b9bcc7751388474ab1268c32c00e",
+        "submission_repo": "rkirov/lean-eval"
+      },
       "posSemidef_map_exp": {
         "benchmark_commit": "ce95f00abb6d84e2ca465e6ec7bb5e12f82cd427",
         "issue_number": 82,
