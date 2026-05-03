@@ -1,3 +1,6 @@
+import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 
 namespace ProblemExistsChiralKnot
 

@@ -315,7 +315,11 @@ def module_to_source_path(module: str) -> pathlib.PurePath:
     return pathlib.PurePath(*module.split(".")).with_suffix(".lean")
 
 
-def source_file_imports(benchmark_repo: pathlib.Path, module: str) -> list[str]:
+def source_file_imports(
+    benchmark_repo: pathlib.Path,
+    module: str,
+    _visited: set[str] | None = None,
+) -> list[str]:
     """Return the original source file's imports, filtered to be safe to
     re-emit at the top of the per-problem snapshot file.
 
@@ -329,18 +333,34 @@ def source_file_imports(benchmark_repo: pathlib.Path, module: str) -> list[str]:
     Filters:
     - drop `import EvalTools.*` — the snapshot strips `@[eval_problem]`
       from bodies, so the marker module is unused;
-    - drop `import LeanEval.*` — local helper modules' bodies are
-      already inlined into `ChallengeDeps.lean` (legacy) or reproduced
-      verbatim in `Challenge.lean` (multi-hole)."""
+    - replace each `import LeanEval.X` with the *transitive* set of
+      non-LeanEval imports from `LeanEval/X.lean`'s source. The
+      LeanEval helper module's body is already inlined elsewhere
+      (`ChallengeDeps.lean` for legacy, verbatim in the source for
+      multi-hole), but its Mathlib dependencies are not — without this
+      expansion, identifiers like `EuclideanSpace` that originate in the
+      helper's imports are unbound."""
+    visited = _visited if _visited is not None else set()
+    if module in visited:
+        return []
+    visited.add(module)
     src = benchmark_repo / module_to_source_path(module)
     if not src.is_file():
         return []
     imports, _ = strip_imports(src.read_text(encoding="utf-8"))
-    return [
-        line for line in imports
-        if not line.startswith("import EvalTools")
-        and not line.startswith("import LeanEval.")
-    ]
+    result: list[str] = []
+    for line in imports:
+        target = line.removeprefix("import ").strip()
+        if target.startswith("EvalTools"):
+            continue
+        if target.startswith("LeanEval."):
+            for inner in source_file_imports(benchmark_repo, target, visited):
+                if inner not in result:
+                    result.append(inner)
+            continue
+        if line not in result:
+            result.append(line)
+    return result
 
 
 def build_problem_fragment(problem: Problem, benchmark_repo: pathlib.Path) -> tuple[list[str], list[str]]:
