@@ -49,3 +49,4 @@ import BenchmarkProblems.ProblemDirichletEigenvaluesEqNatSq
 import BenchmarkProblems.ProblemLinearOdeAsymptoticStability
 import BenchmarkProblems.ProblemBvpComparison
 import BenchmarkProblems.ProblemHeatKernelSolvesHeatEquation
+import BenchmarkProblems.ProblemFermatLastTheorem
