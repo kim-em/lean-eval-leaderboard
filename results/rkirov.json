@@ -50,6 +50,15 @@
         "submission_ref": "69e24b6b1a18117485ef55663d4773900655e033",
         "submission_repo": "rkirov/lean-eval"
       },
+      "cubic_decay_asymptotic": {
+        "benchmark_commit": "2b5dc0fcf5def1fc2a605b785c307f858a0d98b6",
+        "issue_number": 116,
+        "solved_at": "2026-05-03T14:50:31Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "7ea8d3c19aa3ce2fd2376f9ac70126d9bb970baf",
+        "submission_repo": "rkirov/lean-eval"
+      },
       "def_hole_example": {
         "benchmark_commit": "6543eeb833db70365fd2c24aae32731207f2ec05",
         "issue_number": 78,
