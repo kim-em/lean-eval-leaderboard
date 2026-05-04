@@ -22,11 +22,13 @@ BENCHMARK_SNAPSHOT_ROOT = REPO_ROOT / "benchmark-snapshot"
 DEFAULT_BENCHMARK_REPO = pathlib.Path(
     os.environ.get("LEAN_EVAL_BENCHMARK_REPO", str(REPO_ROOT.parent / "lean-eval"))
 )
-# Path to the SHA pin file. Single line, 40 hex chars + trailing newline.
-# See SECURITY.md (in lean-eval) > "Bumping pinned dependencies" for the
-# bump procedure. Bumping this file is the recorded act of advancing the
-# benchmark commit the leaderboard was built against.
-BENCHMARK_COMMIT_FILE = REPO_ROOT / ".benchmark-commit"
+# Path to the SHA pin file the deploy workflow already uses to know
+# which lean-eval commit benchmark-snapshot/ was built from. Single
+# line, 40 hex chars + trailing newline. Bumping this file is the
+# recorded act of advancing the benchmark commit the leaderboard
+# reflects. See SECURITY.md (in lean-eval) > "Bumping pinned
+# dependencies" for the procedure.
+BENCHMARK_COMMIT_FILE = REPO_ROOT / "benchmark-snapshot" / ".benchmark-commit"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
