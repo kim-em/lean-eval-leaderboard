@@ -94,6 +94,7 @@ instance : FromJson ProblemsPayload where
 structure LeaderboardSummary where
   models : Nat
   submitters : Nat
+  problemAuthors : Nat
   problems : Nat
   mainProblems : Nat
   testProblems : Nat
@@ -104,6 +105,7 @@ instance : FromJson LeaderboardSummary where
     return {
       models := ← json.getObjValAs? Nat "models"
       submitters := ← json.getObjValAs? Nat "submitters"
+      problemAuthors := ← json.getObjValAs? Nat "problem_authors"
       problems := ← json.getObjValAs? Nat "problems"
       mainProblems := ← json.getObjValAs? Nat "main_problems"
       testProblems := ← json.getObjValAs? Nat "test_problems"
