@@ -142,6 +142,8 @@ private def heroBlock (summary : LeaderboardSummary) : Block Page :=
     divBlock "hero-stats hero-stat-strip" #[
       heroStat summary.models "models",
       heroStat summary.submitters (pluralize summary.submitters "submitter" "submitters"),
+      heroStat summary.problemAuthors
+        (pluralize summary.problemAuthors "problem author" "problem authors"),
       heroStatLink summary.problems "problems" problemsHref
     ]
   ]

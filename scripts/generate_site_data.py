@@ -705,6 +705,7 @@ def build_leaderboard_payload(
         "summary": {
             "models": len(entries),
             "submitters": len({str(record["user"]) for record in raw_results}),
+            "problem_authors": len({problem.submitter for problem in problems}),
             "problems": len(problems),
             "main_problems": sum(0 if problem.test else 1 for problem in problems),
             "test_problems": sum(1 if problem.test else 0 for problem in problems),

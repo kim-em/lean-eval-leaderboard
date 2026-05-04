@@ -98,6 +98,7 @@ aggregated, ranked, and enriched with provenance and notability metadata.
   "summary": {
     "models": 3,
     "submitters": 5,
+    "problem_authors": 4,
     "problems": 17,
     "main_problems": 15,
     "test_problems": 2
