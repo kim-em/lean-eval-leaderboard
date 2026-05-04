@@ -31,6 +31,15 @@
       }
     },
     "Claude Opus 4.7 (1M context)": {
+      "brauer_character_in_cyclotomic": {
+        "benchmark_commit": "3f035efb4e5cac1277ae89582902897d96b0b95b",
+        "issue_number": 125,
+        "solved_at": "2026-05-04T14:38:51Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "0d1658363e6fea77c26c9b016814398298dc03e4",
+        "submission_repo": "rkirov/lean-eval"
+      },
       "bvp_comparison": {
         "benchmark_commit": "ce95f00abb6d84e2ca465e6ec7bb5e12f82cd427",
         "issue_number": 81,
