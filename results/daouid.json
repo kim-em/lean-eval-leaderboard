@@ -152,6 +152,15 @@
         "submission_ref": "be5ca99521362ea9131eca9a2d95d91ec6fff0f4",
         "submission_repo": "daouid/lean-eval"
       },
+      "oppenheim_inequality": {
+        "benchmark_commit": "9921ef5c57b8d9eaa31b64a7e2d68cf53a388c66",
+        "issue_number": 268,
+        "solved_at": "2026-05-18T15:55:34Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "26b8057f1ef181b15beeab762febd29bf3e6f895",
+        "submission_repo": "daouid/lean-eval"
+      },
       "pi1_circle_mulEquiv_int": {
         "benchmark_commit": "e9a71a25a6bf3bed8dafd0dc32e45f16fe839a32",
         "issue_number": 245,
