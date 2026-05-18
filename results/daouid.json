@@ -2,6 +2,16 @@
   "schema_version": 1,
   "solved": {
     "Antigravity (Multi-Model Ensemble: Gemini 3.1 Pro, Gemini 3 Flash, Claude 4.6 Sonnet/Opus)": {
+      "brauer_character_in_cyclotomic": {
+        "benchmark_commit": "9921ef5c57b8d9eaa31b64a7e2d68cf53a388c66",
+        "issue_number": 267,
+        "production_description": "Antigravity orchestrated the solving using [Jules](https://jules.google.com/) and guided the agent during the task.\n\nDirect Spectral Decomposition Approach\nStrategy: Instead of moving to the global virtual character ring, we perform a local eigenvalue decomposition at the element level.\n\n1. We state that the trace of the linear operator $\\rho(g)$ is the sum of its eigenvalues (roots of the characteristic polynomial) using the Mathlib lemma: Module.End.trace_eq_sum_roots_charpoly_of_splits\n2. Because $g^{\\exp(G)} = 1$ in the group, we have $\\rho(g)^{\\exp(G)} = 1$.\n3. By the Spectral Mapping Theorem (spectrum.pow_mem_pow), if $x$ is an eigenvalue of $\\rho(g)$, then $x^{\\exp(G)}$ must be an eigenvalue of the identity operator, forcing $x^{\\exp(G)} = 1$.\n4. Thus, every individual eigenvalue is an $\\exp(G)$-th root of unity.\n5. The range of our cyclotomic embedding $\\varphi$ contains the image of the primitive root $\\zeta_{\\exp(G)}$, which algebraically generates all $\\exp(G)$-th roots of unity in $\\mathbb{C}$. Hence, each individual eigenvalue lies in $\\varphi\\text{.range}$.\n6. Since $\\varphi\\text{.range}$ is a subring (subsemiring in Mathlib), it is closed under addition, and the trace (the sum of the eigenvalues) automatically lies in $\\varphi\\text{.range}$.",
+        "solved_at": "2026-05-18T13:58:49Z",
+        "submission_kind": "github_repo",
+        "submission_public": true,
+        "submission_ref": "603ecada7f44c090db7568566e665309a5582f7f",
+        "submission_repo": "daouid/lean-eval"
+      },
       "bvp_comparison": {
         "benchmark_commit": "e9a71a25a6bf3bed8dafd0dc32e45f16fe839a32",
         "issue_number": 245,
